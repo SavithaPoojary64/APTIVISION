@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notify Students</title>
+    <style>
+        body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+			background-size: cover;
+			background-repeat: repeat;
+			overflow-x: hidden;
+			background-color: #124448;
+			margin: 0;
+			height: 650px;
+			overflow-y: scroll;
+			padding: 0;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		}
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            color: aqua;
+            font-size: 18px;
+
+
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            color: #124448;
+        }
+        textarea {
+            resize: none;
+            background-color: #26a4ad;
+        }
+        h1{
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <h1>NOTIFY STUDENTS</h1>
+    <form method="post" action="/notify">
+        <textarea name="notification" rows="10" cols="50"></textarea><br><br>
+        <input type="submit" value="Submit"><br><br>
+    </form>
+
+    <table>
+        <tr>
+            <th>NOTIFICATION</th>
+            <th>DATE</th>
+            <th>ACTION</th>
+        </tr>
+        {% for notify in notifications %}
+        <tr>
+            <td>{{ notify[1] }}</td>
+            <td>{{ notify[2] }}</td>
+            <td>
+                <form method="post" action="/delete/{{ notify[0] }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

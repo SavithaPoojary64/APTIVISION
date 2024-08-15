@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    body {
+        background-image: url("{{ url_for('static', filename=bg) }}");
+        background-size: cover;
+        background-repeat: repeat;
+        overflow-x: hidden;
+        background-color: #124448;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .chart-labels {
+        font-size: 16px;
+        font-weight: bold;
+        color: black;  /* Add this line to set the label color to black */
+    }
+
+    h1, label {
+        color: aqua;
+        font-size: 38px;
+    }
+    .btn {
+            color: white;
+            padding: 10px 20px;
+            border-color: #3aef9e;
+            background-color: #124448;
+            text-align: center;
+            text-decoration: none;
+            font-size: 22px;
+            box-shadow: 0px 0px 10px #03cbde;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+    
+        .btn:hover {
+            background-color: #124448;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+</style>
+
+    </style>
+</head>
+<body>
+    <h1>INTERVIEW RESULT</h1><BR><BR>
+    
+    
+    
+    <canvas id="pieChart" style="max-width: 300px; max-height: 300px;"></canvas><br><br>
+    <button class="btn" style="position: relative" onclick="window.location.href='/student'">Cancel</a></button>
+
+    <script>
+        // Retrieve the success rate value from the Flask response
+        var successRate = {{ success }};
+        
+        // Calculate the failure rate
+        var failureRate = 100 - successRate;
+        
+        // Create the data for the pie chart
+        var data = {
+            datasets: [{
+                data: [successRate, failureRate],
+                backgroundColor: [
+                    'green',    // Color for success
+                    'red'       // Color for failure
+                ]
+            }],
+        
+            // These labels will be displayed in the legend
+            labels: [
+                'Success Rate ' + successRate.toFixed(2) + '%',
+                'Failure Rate ' + failureRate.toFixed(2) + '%'
+            ]
+        };
+        
+        // Get the canvas element
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        
+        // Create the pie chart
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 22
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

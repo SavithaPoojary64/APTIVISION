@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AV Home Page</title>
+	<style>
+		
+		body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+			background-size: cover;
+			background-repeat: no-repeat;
+			overflow-x: hidden;
+			background-color: #124448;
+			margin: 0;
+			padding: 0;
+			overflow-y: hidden;
+			font-family: 'Montserrat', sans-serif;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			padding: 0;
+			
+			text-shadow: 2px 2px #333;
+			transition: all 0.5s ease-in-out;
+			animation: fadeIn 0.2s ease-out;
+			animation-fill-mode: backwards;
+			animation-delay: 0.2s;
+			position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+		}
+		.tagline{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			padding: 0;
+			transition: all 0.5s ease-in-out;
+			animation: fadeIn 2s ease-out;
+			animation-fill-mode: backwards;
+			animation-delay: 0.2s;
+			color: #4ee8f0;
+			background: linear-gradient(to right, rgb(3, 247, 211), #8fb7a6, #5cd39d, #5cc797);
+	background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+			
+			
+		}
+		
+		.nametrans{
+			display: flex;
+			position: absolute;
+			top: 90px;
+			left: 0px;
+			margin: 0;
+			padding: 0;
+			text-shadow: 2px 2px #333;
+			transition: all 0.5s ease-in-out;
+			animation: fadeIn 2s ease-out;
+			animation-fill-mode: backwards;
+			animation-delay: 0.2s;
+			background: linear-gradient(to right, #02996e, #ffffff, #02c057, #7af7c9);
+	background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+			
+		}
+		
+
+		.logo img {
+			display: block;
+			width: 200px;
+			height: auto;
+			opacity: 0;
+			transform: translateY(50px);
+			transition: opacity 0.7s ease-in-out, transform 0.5s ease-in-out;
+			
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+		.signup-btn {
+  display: inline-block;
+  border: none;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  
+}
+
+.signup-btn:hover {
+	background-color: #124448;
+box-shadow: 0 2px 10px rgb(58, 239, 158,0.78);
+transform: translateY(-2px);
+border-color: rgb(58, 239, 158);
+
+
+}
+
+.icon{
+	display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			padding: 0;
+			text-shadow: 2px 2px #333;
+			transition: all 0.5s ease-in-out;
+			animation: fadeIn 0.2s ease-out;
+			animation-fill-mode: backwards;
+			animation-delay: 0.2s;
+			position: absolute;
+  top: 70%;
+  left: 90%;
+  width: 65px; /* Increase the width to 200 pixels */
+height: auto;
+  transform: translate(-50%, -50%);
+
+}
+		.menu {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			display: flex;
+			
+			align-items: center;
+			justify-content: center;
+		}
+
+		.menu a {
+			color: #EDF2F4;
+			text-decoration: none;
+			margin-right: 20px;
+			font-size: 1.2em;
+			transition: color 0.3s ease;
+		}
+
+		.menu a:hover {
+			font-style:normal rgb(148, 5, 5);
+			transform: translateY(-2px);
+
+		}
+		
+		.name {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			width: 70px;
+			height: auto;
+			size: 50;
+			z-index: 1;
+		}
+		html{
+			scroll-behavior: smooth;
+		}
+		.about-link {		
+			display: inline-block;
+			padding: 10px 20px;
+			border-radius: 30px;
+			}
+		.about-link:hover{
+			background-color: #124448;
+			color: white;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
+		.contact-link {		
+			display: inline-block;
+			padding: 10px 20px;
+			border-radius: 30px;
+			}
+		.contact-link:hover{
+			background-color: #124448;
+			color: white;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
+		.link {		
+			display: inline-block;
+			padding: 10px 20px;
+			border-radius: 30px;
+			}
+		.link:hover{
+			background-color: #124448;
+			color: white;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
+		 
+
+
+		.about-section{
+			opacity: 0;
+  transform: translateY(60px);
+  transition: all 1.75s ease-in-out;
+  position: absolute;top: 100%;left: 5px;
+  font-size: large;
+			color: #4ec991;
+		}
+		.about-section.show {
+  opacity: 1;
+  transform: translateY(100);
+}
+.contact-section{
+			opacity: 0;
+  transform: translateY(60px);
+  position: absolute;
+  top: 198%;
+  left: 900px;
+  transition: all 1.75s ease-in-out;
+  font-size: large;
+			color: #4ec991;
+		}
+		.contact-section.show {
+  opacity: 1;
+  transform: translateY(100);
+}
+/*
+		<img src="information-desk.png" class="about-img">
+.about-img{
+	position: absolute;
+	opacity: 0.6;
+	top: 30%;
+	left: 100%;
+	width: 200px;
+}*/
+.heading{
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 	
+	background: linear-gradient(to right, #02996e, #ffffff, #02c057, #7af7c9);
+	background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+.heading2{
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 	
+	background: linear-gradient(to right, #02996e, #ffffff, #02c057, #7af7c9);
+	background-clip: text;
+	font-size: 35px;
+	
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+.menubar{
+	background: #02996ec3;
+	padding: -70px -70px;
+	text-align: center;
+}
+p{
+	color: #60efaf; background-color: #03e7a333;border-radius: 5px; font-size: 20px;
+	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+
+}
+		
+	</style>
+</head>
+<body>
+	<div>
+	<img src="{{ url_for('static', filename=name1) }}" alt="name" class="name"> <br><br><br><br><br>
+	<label for="Apti-Vision" class="nametrans" style=" font-family:Garamond; font-size: 15px; color: #68d7a5d4;">&nbspAPTI-VISION</label><br>
+	<div class="menu">
+		<a id="aboutus" href="#about" style="font-size: 20px; color: #4ec991;" class="about-link">About</a>
+		<a href="#help" style="font-size: 20px; color: #4ec991;" class="link">Help</a>
+		<a id="contactus" href="#contact" style="font-size: 20px; color: #4ec991;" class="contact-link">Contact</a>
+
+		<button class="signup-btn" onclick="window.location.href='/signup'" style="font-size: 20px; color: #4ec991;">Login/Signup</button>
+
+		
+	</div>
+	
+</div>
+	<label for="Unlock"  class="tagline" style="font-family:Lucida bright ; font-size: 70px; position: absolute; top: 47%; left: 30px;">Unlock</label><br>
+<br>	<label for="Your" class="tagline" style="font-family:Lucida bright ; font-size: 60px;position: absolute; top: 60%; left: 100px;">Your</label><br>
+<br>	<label for="Potential" class="tagline"  style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 185px;position: absolute; top: 57%; left: 260px;">P</label><br>
+<br>	<label for="Potential" class="tagline"  style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 65px;  position: absolute; top: 77%; left: 330px;">OTENTIAL</label><br>
+<div class="container">
+	<h1 class="logo">
+		<img src="{{ url_for('static', filename=logo1) }}" alt="Logo" >
+	</h1>
+</div>
+
+	
+	<div class="container">
+		<h1 class="icon">
+			<img src="{{ url_for('static', filename=icon) }}" alt="BG" width="600" style="opacity: 0.4;">
+		</h1>
+	</div>
+	<div id="about" class="about-section" >
+		<h1 class="heading" >ABOUT US<br>________________________________________________________________________________________________________________________<br></h1>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	Welcome to Apti-Vision! We are a dedicated team committed to providing a comprehensive and tailored aptitude training experience for<br> college students. Our goal is to empower students to not only excel in their academic journey but also enhance their logical thinking abilities.<br>
+
+			At Apti-Vision, we understand the significance of aptitude training in today's competitive world.<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;We believe that it is not just about achieving a dream job, but also about honing essential skills that will benefit students in various aspects<br> of their lives. With our meticulously designed training sessions, students can enhance their problem-solving skills, critical thinking abilities,<br> and overall logical aptitude.
+			
+			Our platform caters specifically to college students, providing them with a user-friendly interface and engaging<br> content. From comprehensive aptitude classes to interactive practice sessions, we offer a holistic approach to aptitude training. Students can<br> access a wide range of resources, including practice questions, training materials, and valuable feedback to track their progress.
+			
+			At Apti-Vision,<br> we prioritize excellence and strive to create a supportive learning environment. Our team of experienced faculty and experts are dedicated to<br> delivering high-quality training sessions and ensuring that each student receives personalized attention.
+			
+			Join us on this transformative journey<br> of enhancing your logical thinking abilities and unlocking your true potential. Discover a world of opportunities with Apti-Vision, where we<br> are committed to shaping your success in academia and beyond.<br><br></p>	</div>
+	<div id="contact" class="contact-section"><h1 class="heading2" >CONTACT US<br></h1>
+			<h1 class="heading2" style="position: absolute; top: 50%;left: -900px;">________________________________________________________________________________________________________________________<br></h1>
+</div>
+	<script>
+		// animate the logo to slide in from bottom
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var logo = document.querySelector(".logo img");
+			setTimeout(function() {
+				logo.style.opacity = 1;
+				logo.style.transform = "translateY(0)";
+			}, 2000);
+		});
+		//to keep the home page in top
+		window.addEventListener('load', function() {
+			window.scrollTo(0, 0);
+		});
+		//about section to be appeared when it is clicked
+		const aboutLink = document.querySelector('.about-link');
+const aboutSection = document.querySelector('.about-section');
+
+aboutLink.addEventListener('click', () => {
+  aboutSection.classList.add('show');
+  
+});
+const contactLink=document.querySelector('.contact-link');
+const contactSection=document.querySelector('.contact-section');
+contactLink.addEventListener('click', () => {
+  contactSection.classList.add('show');
+  
+});
+var scrollButton = document.getElementById('aboutus');
+var scrollButton2 = document.getElementById('contactus');
+scrollButton.addEventListener('click', function() {
+    document.body.style.overflowY = 'scroll';
+});
+scrollButton2.addEventListener('click', function() {
+    document.body.style.overflowY = 'scroll';
+});
+</script>
+</body>
+</html>

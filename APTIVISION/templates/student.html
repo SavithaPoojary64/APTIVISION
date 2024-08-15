@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Student-Incharge</title>
+      <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
+      <style>
+     
+  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+/*styling for time table content*/
+
+	body {
+    background-image: url("{{ url_for('static', filename=bg) }}");
+		background-size: cover;
+		background-repeat:repeat;
+		overflow-x:hidden;
+		background-color: #124448;
+		margin: 0;
+		overflow-y: scroll;
+		padding: 0;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	   }
+	   .buttonwk {
+  width: 100%;
+  border: none;
+    font-size: 20px;
+  background: none;
+  color:#b1f5d7 ;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+
+}
+.buttonwk:hover{
+	background-color:rgb(5, 161, 146,0.35) ;
+	
+	width: 100%;
+	transform: translateY(-4px);
+
+  }
+  .time-table{
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 10px;
+	padding: 10px;
+        box-shadow: 0px 0px 3px #03ccde;
+	position: relative;
+	margin-top: 65px;
+  margin-left: 200px;
+  }
+  .session-table{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 5px;
+	padding: 5px;
+	position: relative;
+	margin-top: 30px;
+  margin-left: 200px;
+    }
+  td,th{
+  text-align: center;
+  box-shadow: 0px 0px 10px #03ccde;
+  padding: 2px; /* Increase padding on all sides */
+  background-color: #092425;
+    }
+	  /*stylings for sidebar option menu*/
+  *{
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+} 
+.btn{
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  height: 45px;
+  width: 45px;
+  text-align: center;
+  background: #1b1b1b;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px #03cbde;
+
+  cursor: pointer;
+  transition: left 0.4s ease;
+}
+.btn.click{
+  left: 260px;
+}
+.btn span{
+  color: #3aef9e;
+  font-size: 28px;
+  line-height: 45px;
+}
+.btn.click span:before{
+  content: '\f00d';
+}
+.sidebar{
+  position: absolute;
+  top: 0px;
+  width: 250px;
+  height: 100%;
+box-shadow: 0px 0px 10px #03cbde;
+
+  left: -250px;
+  transition: left 0.4s ease;
+}
+.sidebar.show{
+  left: 0px;
+}
+.sidebar .text{
+  color: white;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 65px;
+  text-align: center;
+  background: #1e1e1e;
+  letter-spacing: 1px;
+}
+nav ul{
+	background-color: #092425;
+  height: 100%;
+  width: 100%;
+  list-style: none;
+}
+
+nav ul li{
+  line-height: 60px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+nav ul li:last-child{
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+nav ul li a{
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding-left: 40px;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  border-left: 3px solid transparent;
+}
+nav ul li.active a{
+  color: cyan;
+  background: #1e1e1e;
+  border-left-color: cyan;
+}
+nav ul li a:hover{
+  background: #04cca466;
+  border-left: 3px solid transparent;
+  border-left-color: cyan;
+  
+}
+
+nav ul .feat-show.show{
+  display: block;
+}
+nav ul .serv-show.show1{
+  display: block;
+}
+
+
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #c81313;
+  z-index: -1;
+  text-align: center;
+  
+}
+.content .header{
+  font-size: 45px;
+  font-weight: 600;
+}
+.content p{
+  font-size: 30px;
+  font-weight: 500;
+}
+/*for profile picture*/
+.profile {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+       color:#124448; 
+      }
+
+      .username {
+        margin-left: 5px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .dropdown {
+        position: relative;
+      display: inline-block;
+	  
+      width: 24%;
+}
+
+      .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 80px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: #092425;
+  width: 100%;
+  border-radius: 10px;
+
+  box-shadow: 0px 0px 10px #03cbde;
+  padding: 500;
+  margin: 0;
+  list-style: none;
+}
+
+      .dropdown-content a {
+        color:  #4ee8f0;
+        padding: 12px 16px;
+		
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+		background: #04cca466;
+		
+  border-right: 3px solid transparent;
+  border-right-color: cyan;      }
+
+      .show {
+        display: block;
+      }
+
+      .profile-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        margin-right: 20px;
+        background-image: none;
+        color:  #124448;
+      }
+
+      .profile-icon img {
+        background-color: #f1f1f100;
+        width: 65px;
+      }
+	  /*for view session button*/
+.addbtn{
+	position: relative;
+	margin-left: 250px;
+	display: inline-block;
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+.addbtn:hover{
+
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+}
+</style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+   </head>
+   <body>
+	<h1 style="position: absolute;top: 5%;left: 45%;color: #3aef9e; font-size: 40px;">STUDENT </h1>
+	<div class="profile">
+		<div class="dropdown">
+		  <div class="profile-icon">
+			<img src="{{url_for('static', filename=icon)}}" alt="Profile Icon">
+			
+		  </div>
+		  <div class="dropdown-content">
+			<span class="username"> {{ username }} <br></span> <br>
+			<span class="username"> {{ firstname }}  <br></span>
+      <span class="username"> {{ class_name }}  <br></span>
+			<span class="username"> {{ rollno }}  <br></span>
+
+				<span>___________________________</span>
+				<a href="/myprofile">My Profile</a>
+			
+			<a href="#" onclick="window.location='/'">Home</a>
+			<a href="#">Get Help</a>
+			<a href="#">About</a>
+			<a href="#" onclick="window.location='/'">Logout</a>
+      <a href="#" onclick="window.location.href='/notifications'">Notifications</a>
+		  </div>
+		</div>
+	  </div>
+  
+      <div class="btn">
+         <span class="fas fa-bars"></span>
+      </div>
+      <nav class="sidebar">
+         <div class="text">
+            
+         </div>
+         <ul><li class="active" onclick="window.location='http://127.0.0.1:5000/assignment'">
+            <li class="active"><a href="{{ url_for('mock') }}">MOCK INTERVIEW</a></li>
+            <li class="active"><a href="{{ url_for('attend_test' ,class_name=class_name, rollno=rollno)}}">ATTEND TEST</a></li>
+ 
+
+            <li class="active" ><a href="{{ url_for('practice') }}">PRACTICE TEST</a></li>
+         </ul>
+      </nav>
+	 	 <table class="time-table">
+			<tr>
+				<th>class</th>
+				{% for week in weeks %}
+					<th>{{ week }}</th>
+				{% endfor %}
+			</tr>
+						
+			{% for i in range(class_count) %}
+			<tr>
+				<td>{{ classval[i] }}</td>
+				{% for week in weeks %}
+				<td>
+					{% if week in weeks_subjects %}
+						{% if i < weeks_subjects[week]|length %}
+							{{ weeks_subjects[week][i] }}<br>
+						{% endif %}
+					{% endif %}
+				</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+		<br><br>
+		<button id="view_session" class="addbtn">view session details</button>
+		<table id="sessiontable" style="display: none; " class="session-table">
+			<br>
+			<tr>
+				<th>Class</th>
+				<th>Monday</th>
+				<th>Tuesday</th>
+		<th>Wednesday</th>
+		<th>Thursday</th>
+		<th>Friday</th>       
+		<th>Saturday</th>
+		</tr>
+			{% for session in sessions %}
+			<tr>
+				<td>{{ session[0] }}</td>
+				<td>{{ session[2] }}</td>
+				<td>{{ session[3] }}</td>
+				<td>{{ session[4] }}</td>
+				<td>{{ session[5] }}</td>
+				<td>{{ session[6] }}</td>
+				<td>{{ session[7] }}</td>
+		<br>
+			</tr>
+			{% endfor %}
+		</table>
+      <script>
+         $('.btn').click(function(){
+           $(this).toggleClass("click");
+           $('.sidebar').toggleClass("show");
+         });
+           $('.feat-btn').click(function(){
+             $('nav ul .feat-show').toggleClass("show");
+             $('nav ul .first').toggleClass("rotate");
+           });
+           $('.serv-btn').click(function(){
+             $('nav ul .serv-show').toggleClass("show1");
+             $('nav ul .second').toggleClass("rotate");
+           });
+           $('nav ul li').click(function(){
+             $(this).addClass("active").siblings().removeClass("active");
+           });
+		   var profileIcon = document.querySelector('.profile-icon');
+      var dropdownContent = document.querySelector('.dropdown-content');
+
+      profileIcon.addEventListener('click', function() {
+        dropdownContent.classList.toggle('show');
+      });
+	   //session table
+	   var sessionTable = document.getElementById('sessiontable');
+        var viewSessionButton = document.getElementById('view_session');
+
+        viewSessionButton.addEventListener('click', function() {
+            // Toggle the display of the session table
+            sessionTable.style.display = sessionTable.style.display === 'none' ? 'block' : 'none';
+        });
+      </script>
+   </body>
+</html>

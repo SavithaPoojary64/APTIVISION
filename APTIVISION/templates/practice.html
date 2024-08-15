@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Practice Interview</title>
+    <style>
+      body {
+        background-image: url("{{ url_for('static', filename=bg) }}");
+			background-size: cover;
+			background-repeat: repeat;
+			overflow-x: hidden;
+			background-color: #124448;
+			margin: 0;
+			height: 650px;
+			overflow-y: scroll;
+			padding: 0;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		}
+      
+       
+      
+      .subject-container {
+            position: absolute ;
+            top: 80px;
+            left: 50px;
+			display: inline-flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid #3aef9e;
+			padding: 1px;
+			border-radius: 10px;
+			width: 35%;
+			height: 460px;
+			margin: 30 auto;
+			margin-left: 400px;
+			box-shadow: 0px 0px 10px #ccc;
+			background-color: rgba(255, 255, 255, 0.01);
+        
+      }
+      h2 {
+      position: absolute;
+      top:140px;
+      left:550px;
+			font-size: 30px;
+			text-align: center;
+			color: #3aef9e;
+			margin-bottom: 80px;
+			margin-top: 0;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+		}
+       
+      .subject {
+        padding: 10px;
+        margin: 0 10px;
+        position: absolute;
+        top: 140px;
+        left:130px;
+        font-size: 20px;
+  
+      }
+      
+      a {
+        color: #4ee8f0;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        text-decoration: underline;
+      }
+      
+      .btn-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+      
+      .btn{
+    
+    color: white;
+    padding: 10px 20px;
+    border-color: #3aef9e;
+    background-color: #124448;
+        text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease
+  }
+
+  .btn:hover {
+  background-color: #124448;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  }
+    </style>
+  </head>
+  <body>
+    <h2>Practice Test</h2><br><br>
+    
+    <div class="subject-container">
+      <div class="subject" >
+        <a href="{{ url_for('praquantitative') }}" > > Quantitative</a>
+      </div>
+      <div class="subject" style="position: absolute;top: 180px;left:130px; font-size: 20px;">
+        <a href="{{ url_for('pralogical') }}" > > Logical Reasoning</a>
+      </div>
+      <div class="subject" style="position: absolute;top: 220px;left:130px;font-size: 20px;">
+        <a href="{{ url_for('praenglish') }}" > > Verbal Ability </a>
+      </div>
+    </div>
+    <div class="btn-container">
+      <button class="btn" style="position: absolute;top:420px;left:500px;" onclick="window.location.href='/student'">Cancel</a></button>
+
+    </div>
+  </body>
+</html>

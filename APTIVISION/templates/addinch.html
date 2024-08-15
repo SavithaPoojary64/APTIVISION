@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add incharge</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+
+            margin-top: 45px;
+            border: 1px solid #3aef9e;
+            padding:5px;
+            border-radius: 10px;
+            width: 40%;
+            height: 620px;
+           margin: 30 auto;
+           margin-left: 400px;
+           box-shadow: 0px 0px 10px #ccc;
+           background-color: rgba(255, 255, 255, 0.08); /* transparent white */
+    
+        }
+         .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+        body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+            background-size: cover;
+            background-repeat: repeat;
+            overflow-x: scroll;
+            background-color: #124448;
+            margin: 0;
+            overflow-y: scroll;
+            padding: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        label{
+            color: #4ee8f0;   font-size: 18.5px;margin-left: 20px;
+        }
+        input[type="text"],input[type="password"],input[type="email"]{
+          color: #4ee8f0; background-color: #124448;
+            height: 16px;
+            width: 32%;
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        select
+   {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #4ee8f0;
+    background-color: #124448;
+  }
+  input[type="submit"] {
+    
+    color: white;
+    padding: 10px 20px;
+    border-color: #3aef9e;
+    background-color: #124448;
+        text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease
+  }
+
+  input[type="submit"]:hover {
+  background-color: #124448;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  }
+  .message,.message2,.message3
+  {
+    color: red;
+    margin-bottom: 10px;
+}
+
+ 
+        </style>
+        <body>
+			<form action="/submit_incharge" method="post">
+				<h2 style="text-align: center; color:#3aef9e;font-size: 30px;margin-left: 50px;">ADD INCHARGE<br></h2><br>
+  <div class="form-group">
+    <label for="subject"><b>Select subject :</b></label>
+    <select required style="color: #4ee8f0;margin-left: 80px;width: 35%;" id="subject" name="subject">
+        <option value="" selected disabled>Select</option>
+        <option value="syllogism">Syllogism</option>
+        <option value="Direction">Direction</option>
+        <option value="English">English</option>
+        <option value="Blood Relation">Blood Relation</option>
+        <option value="HCF and LCM">HCF and LCM</option>
+        <option value="Profit and loss">Profit and loss</option>
+        <option value="percentage">Percentage</option>
+        <option value="work and wages">work and wages</option>
+    </select>
+  </div><br>
+  <div class="form-group">
+    <label for="name" ><b>Enter Name :</b></label>
+    <input type="text" id="name" name="name" style="margin-left: 100px;" placeholder="Enter Incharge's name" required>
+  </div><br>
+  <div class="form-group">
+    <label ><b>Select Role    :</b></label>
+    <input style="margin-left: 55px;" type="radio" id="student" name="role" value="student" onclick="toggleFields(true)" required>
+    <label for="student">Student</label>
+    <input type="radio" id="lecturer" name="role" value="lecturer" onclick="toggleFields(false)">
+    <label for="lecturer">Lecturer</label>
+  </div>
+  <div class="form-group">
+    <label for="class"><b>Select class:</b></label>
+    <select style="color: #4ee8f0;margin-left: 110px;width: 35%;" id="class" name="class_name">
+        <option value="" selected disabled>Select</option>
+        <option value="IBCA A">IBCA A</option>
+        <option value="IBCA B">IBCA B</option>
+        <option value="IBCA C">IBCA C</option>
+        <option value="IIBCA A">IIBCA A</option>
+        <option value="IIBCA B">IIBCA B</option>
+        <option value="IIBCA C">IIBCA C</option>
+        <option value="IIIBCA A">IIIBCA A</option>
+        <option value="IIIBCA B">IIIBCA B</option>
+    </select>
+    
+</div>
+{% if msg %}
+<div class="message">{{ msg }}</div>
+{% endif %}
+
+<br>
+  <div class="form-group">
+    <label for="rollno"><b>Enter Roll no:</b></label>
+    <input type="text" id="rollno" name="rollno" style="margin-left: 93px;" placeholder="Enter Incharge's Roll no" >
+    {% if msg3 %}
+    <div class="message3">{{ msg3 }}</div>
+     {% endif %}
+     </div><br><div class="form-group">
+    <label for="email" ><b>Enter their Email-ID :</b></label>
+    <input type="email" id="email" name="email" style="margin-left: 25px;"placeholder="Enter Incharge's Email" required required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="enter in proper email format"> <br><br>
+    {% if msg2 %}
+   <div class="message2">{{ msg2 }}</div>
+    {% endif %}
+    
+  </div><br>
+  <div class="form-group">
+    <label for="password" ><b>Set their password :</label>
+    <input type="password" id="password" name="password" style="margin-left: 34px;width: 75%;" placeholder="set their password"required>
+  </div><br>
+  <br><br><br>
+  <div class="form-group">
+    <input type="submit" value="SUBMIT" style="position: absolute; top: 106%; margin-left: 90px;" >
+  
+    <input type="submit" value="CANCEL" style="position: absolute; top: 106%; left: 55%;" onclick="window.location.href='/place_head'">
+</form>
+<script>
+   function toggleFields(studentSelected) {
+            var classField = document.getElementById("class");
+            var rollnoField = document.getElementById("rollno");
+            
+            classField.required = studentSelected;
+            rollnoField.required = studentSelected;
+            
+            classField.disabled = !studentSelected;
+            rollnoField.disabled = !studentSelected;
+            
+            if (!studentSelected) {
+                classField.value = "";
+                rollnoField.value = "";
+            }
+        }
+
+        // Event listener to call toggleFields() when radio buttons are clicked
+        var studentRadio = document.getElementById("student");
+        var lecturerRadio = document.getElementById("lecturer");
+
+        studentRadio.addEventListener("click", function() {
+            toggleFields(true);
+        });
+
+        lecturerRadio.addEventListener("click", function() {
+            toggleFields(false);
+        });
+    </script>
+</script>
+</body>
+</html>

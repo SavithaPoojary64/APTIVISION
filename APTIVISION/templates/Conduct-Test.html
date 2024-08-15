@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Conduct Test</title>
+	<style>
+		body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+			background-size: cover;
+			background-repeat: repeat;
+			overflow-x: hidden;
+			background-color: #124448;
+			margin: 0;
+			height: 650px;
+			overflow-y: scroll;
+			padding: 0;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		}
+
+		form {
+            position: absolute ;
+            top: 80px;
+            left: 50px;
+			display: inline-flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin-top: 5px;
+			border: 1px solid #3aef9e;
+			padding: 1px;
+			border-radius: 10px;
+			width: 35%;
+			height: 460px;
+			margin: 30 auto;
+			margin-left: 400px;
+			box-shadow: 0px 0px 10px #ccc;
+			background-color: rgba(255, 255, 255, 0.4); /* transparent white */
+		}
+
+		h1 {
+            position: absolute;
+            top:45px;
+			font-size: 30px;
+			text-align: center;
+			color: #3aef9e;
+			margin-bottom: 80px;
+			margin-top: 0;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+		}
+
+		label {
+            position: relative;
+            
+			font-weight: bold;
+			margin-right: 10px;
+			min-width: 100px;
+			font-size: 18px;
+			display: inline-block;
+			color: #4ee8f0;
+			margin-top: 10px;
+		}
+
+		select, input[type=date] {
+			display: inline-block;
+			margin: 10px 0;
+			padding: 10px;
+			border: 1px solid #ccc;
+			color: #4ee8f0;
+			background-color: #124448;
+			border-radius: 4px;
+			font-size: 1rem;
+			width: 100%;
+			max-width: 400px;
+			box-sizing: border-box;
+		}
+
+		.btn-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 25px;
+		}
+
+		.btn {
+			display: inline-block;
+            position: relative;
+            
+			color: white;
+            padding: 10px 20px;
+            border-color: #3aef9e;
+            background-color: #35a37100;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0px 0px 10px #03cbde;
+            border-radius: 30px;
+            transition: all 0.3s ease
+		}
+
+		.btn:hover {
+            background-color: #124448;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+		}
+	</style>
+</head>
+<body>
+	<div class="body">
+		<form action="/store_test" method="POST">
+			<h1>CONDUCT TEST</h1>
+			<label for="class-select">Select Class:</label>
+			<select id="class-select" name="class" required>
+				<option value="" selected disabled>Select</option>
+				<option value="IBCA A">IBCA A</option>
+				<option value="IBCA B">IBCA B</option>
+				<option value="IBCA C">IBCA C</option>
+				<option value="IIBCA A">IIBCA A</option>
+				<option value="IIBCA B">IIBCA B</option>
+				<option value="IIBCA C">IIBCA C</option>
+				<option value="IIIBCA A">IIIBCA A</option>
+				<option value="IIIBCA B">IIIBCA B</option>
+			</select>
+			
+			<select id="subject" name="subject">
+				<option value="" selected disabled>Select</option>
+				<option value="English">English</option>
+				<option value="Syllogism">Syllogism</option>
+				<option value="Direction">Direction</option>
+				<option value="Blood-Relation">Blood-Relation</option>
+				<option value="quantitative">quantitative</option>
+				<option value="Logical-Reasoning">Logical-Reasoning</option>
+			</select>
+			<label for="due-date">Set Due-Date:</label>
+			<input type="date" id="due-date" name="due_date" min="" required>
+
+			<div class="btn-container">
+				<button type="button" id="back-btn" class="btn" onclick="window.location.href='/student_in_charge'">BACK</button>
+				<button type="submit" id="next-btn" class="btn" style="margin-left:25px;">SEND</button>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		// JavaScript code to set the minimum date to today's date
+		window.addEventListener('DOMContentLoaded', () => {
+			const today = new Date().toISOString().split('T')[0];
+			document.getElementById('due-date').setAttribute('min', today);
+		});
+	</script>
+</body>
+</html>

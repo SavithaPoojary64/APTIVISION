@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+      html{
+        scroll-behavior: smooth;
+      }
+       body {
+        background-image: url("{{ url_for('static', filename=bg) }}");
+			 background-color: #124448;
+			 margin: 0;
+			 padding: 0;
+			 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+       label.error {
+        font-family: 'Times New Roman', Times, serif;
+			color: red;
+			font-size: 12px;
+			margin-left: 10px;
+		}
+    h1 {
+margin-left: 45%;
+            color: #3aef9e;
+
+		}
+    label{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 15px;
+}
+		input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder {
+			color: white;
+		}
+		input[type="text"], input[type="password"],input[type="email"] {
+			background-color:#124448;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 5px;
+			margin: 5px auto;
+			width: 55%;
+			display: inline-block;
+		}
+		input[type="submit"] {
+			background-color:#124448;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			margin: 10px auto 0;
+      font-size: 17px;
+			width: 40%;
+			cursor: pointer;
+			font-weight: bold;
+			transition: background-color 0.5s;
+			display: block;
+		}
+		input[type="submit"]:hover {
+			background-color: #3aef9e;
+		}
+  
+  select{
+    width: 57%; border-radius: 5px;height: 36.5px; background-color: rgb(18, 68, 72,0.5); color: white;
+  }
+     
+      .form1{
+        background-color: rgba(255, 255, 255, 0.05); /* transparent white */
+        padding: 10px;
+        position: relative ;
+        transition: all 0.5s ease-in-out;
+        animation: fadeIn 2s ease-out;
+        animation-fill-mode: backwards;
+        animation-delay: 0.2s;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #03cbde;
+        width: 400px;
+        margin: 60px auto;
+        display: block;
+      }
+      .amove:hover{
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+}
+
+    </style>
+</head>
+<body> <div class="form1">
+  <h1>LOGIN</h1><br>
+  <img alt="name1" style="margin-left: 45%; height: 80px;" src="{{url_for('static',filename=name2)}}"></h2>
+ <br><br>
+    <label for="userType">Select User Type:</label>
+    
+    <select id="userType" name="userType" onchange="toggleForms()" required>
+        <option value="">Select User Type</option>
+        <option value="placementHead">Placement Head</option>
+        <option value="incharge">Incharge</option>
+        <option value="student">Student</option>
+    </select>
+    {% if msg %}
+<div class="message" style="color: red;">{{ msg }}</div>
+{% endif %}
+<br><br>
+
+    <form id="placementHead" class="hidden" action="/submit-placement-head" method="POST">
+        <label for="email">Enter Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <br><br>
+
+        <label for="password">Enter Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+    
+        <p style="color: #03cbde;">Don't have an account?  <a style="color: #3aef9e; " onclick="window.location.href='/signup'" class="amove" >SIGNUP</a></p>
+        <input type="submit" value="Submit">
+    </form>
+
+    <form id="incharge" class="hidden" action="/submit-inchargelogin" method="POST">
+        <label for="email">Enter Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="subject">Select Subject:</label>
+        <select id="subject" name="subject" required>
+            <option value="" selected disabled>Select</option>
+            <option value="syllogism">Syllogism</option>
+            <option value="Direction">Direction</option>
+            <option value="English">English</option>
+            <option value="Blood Relation">Blood Relation</option>
+            <option value="HCF and LCM">HCF and LCM</option>
+            <option value="Profit and loss">Profit and loss</option>
+            <option value="percentage">Percentage</option>
+            <option value="work and wages">work and wages</option>
+        </select><br><br>
+        <label for="class">Select Class:</label>
+        <select id="class" name="class">
+            <option value="" selected disabled>Select</option>
+            <option value="IBCA A">IBCA A</option>
+            <option value="IBCA B">IBCA B</option>
+            <option value="IBCA C">IBCA C</option>
+            <option value="IIBCA A">IIBCA A</option>
+            <option value="IIBCA B">IIBCA B</option>
+            <option value="IIBCA C">IIBCA C</option>
+            <option value="IIIBCA A">IIIBCA A</option>
+            <option value="IIIBCA B">IIIBCA B</option>
+        </select><br><br>
+        <label for="password">Enter Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <label for="firstname">Enter first name:</label>
+        <input type="text" id="firstname" name="firstname" required><br><br>
+        <label for="lastname">Enter last name:</label>
+        <input type="text" id="lastname" name="lastname" required><br><br>
+        <p style="color: #03cbde;">Don't have an account?  <a style="color: #3aef9e; " onclick="window.location.href='/signup'" class="amove" >SIGNUP</a></p>
+        <input type="submit" value="Submit">
+    </form>
+
+    <form id="student" class="hidden" action="/submit-student" method="POST">
+        <label for="class">Select Class:</label>
+        <select id="class" name="class" required>
+            <option value="" selected disabled>Select</option>
+            <option value="IBCA A">IBCA A</option>
+            <option value="IBCA B">IBCA B</option>
+            <option value="IBCA C">IBCA C</option>
+            <option value="IIBCA A">IIBCA A</option>
+            <option value="IIBCA B">IIBCA B</option>
+            <option value="IIBCA C">IIBCA C</option>
+            <option value="IIIBCA A">IIIBCA A</option>
+            <option value="IIIBCA B">IIIBCA B</option>
+        </select><br><br>
+        
+        <label for="password">Enter Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="name">Enter Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="rollno">Enter Roll No:</label>
+        <input type="text" id="rollno" name="rollno" required><br><br>
+        
+        <label for="email">Enter Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <p style="color: #03cbde;">Don't have an account?  <a style="color: #3aef9e; " onclick="window.location.href='/signup'" class="amove" >SIGNUP</a></p>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+    <script>
+        function toggleForms() {
+            var userType = document.getElementById("userType").value;
+            var placementHead = document.getElementById("placementHead");
+            var incharge = document.getElementById("incharge");
+            var student = document.getElementById("student");
+            
+            if (userType === "placementHead") {
+                placementHead.classList.remove("hidden");
+                incharge.classList.add("hidden");
+                student.classList.add("hidden");
+            } else if (userType === "incharge") {
+                placementHead.classList.add("hidden");
+                incharge.classList.remove("hidden");
+                student.classList.add("hidden");
+            } else if (userType === "student") {
+                placementHead.classList.add("hidden");
+                incharge.classList.add("hidden");
+                student.classList.remove("hidden");
+            } else {
+                placementHead.classList.add("hidden");
+                incharge.classList.add("hidden");
+                student.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+</html>

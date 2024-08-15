@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+            background-size: cover;
+            background-repeat: repeat;
+            overflow-x: scroll;
+            background-color: #124448;
+            margin: 0;
+            overflow-y: scroll;
+            padding: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        label{
+            color: aqua;
+            font-size: 22px;
+            margin-left: 50px;
+        }
+        h1{
+            color: aqua;
+            font-size: 30px;
+            margin-left: 50px;
+        }
+        select
+   {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #4ee8f0;
+    width: 15%;
+    background-color: #124448;
+  }
+  input[type="text"]{
+          color: #4ee8f0; background-color: #124448;
+            height: 16px;
+            width: 13%;
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        button[type="submit"] {
+            color: white;
+            padding: 5px 15px;
+            border-color: #3aef9e;
+            background-color: #35a37100;
+            text-align: center;
+            margin-left:45px;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0px 0px 5px #03cbde;
+            border-radius: 20px;
+            transition: all 0.3s ease
+    
+        }
+        button[type="submit"]:hover {
+            background-color: #124448;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>ATTEND TEST</h1>
+    <form action="/questions" method="post">
+        <br><br>
+
+       
+<input type="text" value="{{class_name}}" id="class_name" name="class_name" style="display: none;" >
+<input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+        <button type="submit" id="next-btn" class="btn">START TEST</button>
+    </form>
+</body>
+</html>

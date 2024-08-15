@@ -1,0 +1,200 @@
+<body>
+  <!--Sign-up Page-->
+  <!DOCTYPE html>
+<html>
+  <head>
+    <title>Signup-Login</title>
+    <style>
+      html{
+        scroll-behavior: smooth;
+      }
+       body {
+        background-image: url("{{ url_for('static', filename=bg) }}");
+			 background-color: #124448;
+			 margin: 0;
+			 padding: 0;
+			 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+       label.error {
+        font-family: 'Times New Roman', Times, serif;
+			color: red;
+			font-size: 12px;
+			margin-left: 10px;
+		}
+    h2 {
+			text-align: center;
+		}
+    label {
+			display: inline-block;
+			width: 20%;
+			text-align: right;
+			margin-right: 5%;
+			margin-bottom: 5px;
+		}
+		input[type="text"]::placeholder, input[type="password"]::placeholder {
+			color: white;
+		}
+		input[type="text"], input[type="password"] {
+			background-color:#124448;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 5px;
+			margin: 5px auto;
+			width: 65%;
+			display: inline-block;
+		}
+		input[type="submit"] {
+			background-color:#124448;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			margin: 10px auto 0;
+      font-size: 17px;
+			width: 30%;
+      margin-top:1px;
+			cursor: pointer;
+			font-weight: bold;
+			transition: background-color 0.5s;
+			display: block;
+		}
+		input[type="submit"]:hover {
+			background-color: #3aef9e;
+		}
+  placeholder{
+    color: rgb(3, 203, 222,0.5);
+  }
+     
+      .form1{
+        background-color: rgba(255, 255, 255, 0.05); /* transparent white */
+        padding: 10px;
+        position: absolute ;
+        top: 5px;
+        left: 80px; 
+        transition: all 0.5s ease-in-out;
+        animation: fadeIn 2s ease-out;
+        animation-fill-mode: backwards;
+        animation-delay: 0.2s;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #03cbde;
+        width: 400px;
+        margin: 60px auto;
+        margin-top: 5px;
+        display: block;
+        height:610px;
+      }
+      
+.userfont{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 15px;
+}
+.userfont1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:#b1f5d7 
+   /* Adjust the height as needed */
+}
+.amove:hover{
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+}
+
+/* style for the upload profile input and image preview */
+#upload-profile {
+  margin-right: 10px;
+  display: none;
+  border-radius: 50%; /* Make the element circular */
+}
+
+#uploaded-profile-pic {
+  margin-right: 10px;
+  border-radius: 50%; /* Make the image circular */
+  background-color: #ccc; /* Add a background color to the image */
+}
+
+#preview {
+  margin-right: 10px;
+  min-width: 15px;
+  margin-top: 3px;
+}
+
+    </style>
+  </head>
+
+  <form id="signup" class="form1" action="{{ url_for('signup') }}" onsubmit="return validateForm()" method="POST">
+    <h2 style="color: #3aef9e;text-align: center;font-size: 30px;">SIGN UP<br>
+        <img alt="name1" style="vertical-align: middle; height: 80px;" src="{{url_for('static',filename=name2)}}"></h2>
+        {% if message %}
+        <p style="color: red; text-align: center;">{{ message }}</p>
+        {% endif %}
+    <label for="user" class="userfont"><i class="fas fa-user"></i>
+    User:</label>
+    <select id="placement" name="user_type" style="width: 67.5%; border-radius: 5px;height: 36.5px; background-color: rgb(18, 68, 72,0.5); color: white" required>
+        <option value="" disabled selected>Select an Option</option>
+        <option>Placement Head</option>
+    </select>
+    <br>
+    <label for="username" class="userfont">Username:</label>
+    <input style="height: 25px;" type="text" id="username" name="username" placeholder="Enter Email" pattern="savithapoojary64@gmail.com||savithapoojary193@gmail.com||savithapoojary6@gmail.com||prathvisalian893@gmail.com||harshithabhandary03@gmail.com" oninvalid="setCustomValidity('Invalid ID')" oninput="setCustomValidity('')" required><br>
+   <!-- {% if is_valid_username == False %}
+    <p style="color: red; text-align: center;">Invalid username. Please enter a valid username.</p>
+    {% endif %} -->
+    <label for="first_name" class="userfont">Firstname:</label>
+    <input style="height: 25px;" type="text" id="first_name" name="first_name" placeholder="Enter First Name"  required><br>
+    <label for="last_name" class="userfont">Lastname:</label>
+    <input style="height: 25px;" type="text" id="last_name" name="last_name" placeholder="Enter Last Name"  required><br>
+    <label for="password" class="userfont">Password:</label>        
+<input style="height: 25px;" type="password" id="password" name="password" placeholder="Enter password" onkeyup="validatePassword()" required>        
+<span id="password-error" class="label" style="font-family: 'Times New Roman', Times, serif; color: red;" name="password-error"></span>
+<br>
+<label for="confirm_password" class="userfont">Confirm Password:</label>
+<input style="height: 25px;" type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" onkeyup="validatePassword()" required>
+
+   <!-- <div class="textbox" style="width: 92%; ">-->
+      <label for="upload" class="userfont" style="color: #b1f5d7;"> Upload Picture:  </label>
+          <input type="file" id="profile_picture" name="profile_picture" style="text-size-adjust: 130px;color:#fff;" onchange="previewProfilePic()"></div>
+      <br> <img id="uploaded-profile-pic" src="{{url_for('static',filename=image2)}}"
+      style="max-width: 100px; max-height: 100px ; margin-left: 150px;"><br>
+    <p class="userfont">Already have an account?  <a style="color: #3aef9e; " href="login" onclick="switchForm('form2')" class="amove" >Log in</a></p>
+    <input type="submit" value="Sign Up">
+    <script>
+
+function previewProfilePic() {
+    const fileInput = document.getElementById('profile-picture');
+    const imgPreview = document.getElementById('uploaded-profile-pic');
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imgPreview.setAttribute('src', e.target.result);
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+      function previewProfilePic() {
+        const fileInput = document.getElementById('profile_picture');
+        const imgPreview = document.getElementById('uploaded-profile-pic');
+        if (fileInput.files && fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            imgPreview.setAttribute('src', e.target.result);
+          }
+          reader.readAsDataURL(fileInput.files[0]);
+        }
+      }
+      function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+        var error_message = document.getElementById("password-error");
+
+        if (password !== confirm_password) {
+            error_message.textContent = "Passwords do not match";
+        } else {
+            error_message.textContent = "";
+        }
+    }
+    </script>
+    </form>
+  </html>

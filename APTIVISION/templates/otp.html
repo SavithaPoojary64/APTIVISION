@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OTP Verification</title>
+  </head>
+  <style>
+    body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+			 background-size: cover;
+			 background-repeat:no-repeat;
+			 overflow-x:hidden;
+			 background-color: #124448;
+			 margin: 0;
+			 overflow-y: scroll;
+			 padding: 0;
+			 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+    .field-input{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px 0;
+    }
+   
+    
+    .otp-field{
+      border-radius: 5px;
+      font-size: 60px;
+      height: 100px;
+      width: 100px;
+      border: 3px solid #03835a;
+      margin: 1%;
+      text-align: center;
+      font-weight: 600;
+      outline: none;
+    }
+    .otp-field::-webkit-inner-spin-button,.otp-field::-webkit-outer-spin-button{
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .otp-field:valid{
+      border-color: #01362d;
+      box-shadow: 0 10px 10px -5px #524343;
+    }
+    @media only screen and (max-width:455px){
+      .otp-field{
+        font-size: 55px;
+        height: 80px;
+        width: 80px;
+      }
+    }
+    .button{
+    
+    
+    position: absolute;
+    top:70%;
+    left: 45%;
+    display: inline-block;
+    border-color: #3aef9e;
+    background-color: #35a37100;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  
+  
+  .button:hover{
+  
+   
+  background-color: #124448;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  
+  
+  }
+  
+     
+  </style>
+  <body>
+    
+    <div class="form" style="text-align: center;">
+    <h1 style="color: white;">OTP Verification</h1>
+    <p style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Please enter the OTP sent </p>
+    <form id="otp-verify-form" method="POST" action="/verify-otp">
+      <br>
+      
+    {% if otp_error %}
+        <p style="color: red;">{{ otp_error }}</p>
+    {% endif %}
+      <br>
+      <br>
+      <label for="otp_verification">Enter OTP:</label>
+      <div class="field-input">
+        <input name="otp" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+        <input name="otp" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+        <input name="otp" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+        <input name="otp" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+  </div>
+      <br><br>
+      <input type="submit" value="Verify OTP" class="button">
+  </form>
+  </div>
+
+    <script>
+      const otp=document.querySelectorAll('.otp-field');
+      otp[0].focus();
+      otp.forEach((field,index)=>{
+        field.addEventListener('keydown',(e)=>{
+          if(e.key>=0 && e.key <=9){
+            otp[index].value="";
+            setTimeout(()=>{
+              otp[index+1].focus();
+            },4);
+          }
+          else if(e.key=='Backspace'){
+            setTimeout(()=>{
+              otp[index-1].focus();
+
+            },4);
+          }
+        });
+      });
+      /* Function to generate OTP
+function generateOTP() {
+  var digits = '0123456789';
+  var otp = '';
+  for (let i = 0; i < 6; i++) {
+    otp += digits[Math.floor(Math.random() * 10)];
+  }
+  return otp;
+}
+// Handle the form submission
+function submitForm(event) {
+  event.preventDefault();
+  
+  // Get the email address from the input field
+  var email = "prathvisalian893@gmail.com"
+  // Generate a random 6 digit OTP
+  var sent_otp = generateOTP();
+
+  // Send the OTP to the specified email address
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "send_otp.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Email sent successfully, do something here
+    }
+  };
+  xhr.send("email=" + email + "&otp=" + sent_otp);
+
+  // Store the generated OTP in a variable
+  var sent_otp = generateOTP();
+  
+  // Leave the password field blank
+  document.getElementById("password").value = "";
+}
+
+      const otpVerifyForm = document.getElementById("otp-verify-form");
+
+      otpVerifyForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+sent_otp='123456'
+        const enteredOTP = Array.from(
+          document.querySelectorAll("#otp-verify-form input")
+        ).map((input) => input.value).join("");
+
+        // Replace with your OTP generation and sending code
+
+        if (enteredOTP !== sent_otp) {
+          alert("Invalid OTP");
+          return;
+        }
+
+        alert("OTP verified successfully!");
+
+        // Redirect to homepage
+        window.location.href = "index.html";
+      });*/
+       
+    </script>
+  </body>
+</html>
+<!-- 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OTP Verification</title>
+  </head>
+  <style>
+    body {
+		     background-image: url('bg.png');
+			 background-size: cover;
+			 background-repeat:no-repeat;
+			 overflow-x:hidden;
+			 background-color: #124448;
+			 margin: 0;
+			 overflow-y: scroll;
+			 padding: 0;
+			 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+    .field-input{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px 0;
+    }
+    .button{
+    
+    
+	position: absolute;
+	top:50%;
+	left: 45%;
+	display: inline-block;
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+
+
+.button:hover{
+
+ 
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+
+}
+    
+    .otp-field{
+      border-radius: 5px;
+      font-size: 60px;
+      height: 100px;
+      width: 100px;
+      border: 3px solid #03835a;
+      margin: 1%;
+      text-align: center;
+      font-weight: 600;
+      outline: none;
+    }
+    .otp-field::-webkit-inner-spin-button,.otp-field::-webkit-outer-spin-button{
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .otp-field:valid{
+      border-color: #01362d;
+      box-shadow: 0 10px 10px -5px #524343;
+    }
+    @media only screen and (max-width:455px){
+      .otp-field{
+        font-size: 55px;
+        height: 80px;
+        width: 80px;
+      }
+    }
+     
+  </style>
+  <body>
+    <div class="form" style="text-align: center;">
+    <h1 style="color: white;">OTP Verification</h1>
+    <p style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Please enter the OTP sent to <strong>***93@gmail.com</strong></p>
+    <form action="place-head.html" autocomplete="off" id="otp-verify-form">
+      <div class="field-input">
+      <input name="otp1" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+      <input name="otp2" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+      <input name="otp3" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+      <input name="otp4" class='otp-field' type="number" placeholder="0" min="0" max="9" size="3" maxlength="1" required onpaste="false">
+</div>
+<div class="submit">
+  <input type="submit" value="Verify Now" class="button">
+</div>
+    </form>
+  </div>
+
+    <script>
+      const otp=document.querySelectorAll('.otp-field');
+      otp[0].focus();
+      otp.forEach((field,index)=>{
+        field.addEventListener('keydown',(e)=>{
+          if(e.key>=0 && e.key <=9){
+            otp[index].value="";
+            setTimeout(()=>{
+              otp[index+1].focus();
+            },4);
+          }
+          else if(e.key=='Backspace'){
+            setTimeout(()=>{
+              otp[index-1].focus();
+
+            },4);
+          }
+        });
+      });
+      /* Function to generate OTP
+function generateOTP() {
+  var digits = '0123456789';
+  var otp = '';
+  for (let i = 0; i < 6; i++) {
+    otp += digits[Math.floor(Math.random() * 10)];
+  }
+  return otp;
+}
+// Handle the form submission
+function submitForm(event) {
+  event.preventDefault();
+  
+  // Get the email address from the input field
+  var email = "prathvisalian893@gmail.com"
+  // Generate a random 6 digit OTP
+  var sent_otp = generateOTP();
+
+  // Send the OTP to the specified email address
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "send_otp.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Email sent successfully, do something here
+    }
+  };
+  xhr.send("email=" + email + "&otp=" + sent_otp);
+
+  // Store the generated OTP in a variable
+  var sent_otp = generateOTP();
+  
+  // Leave the password field blank
+  document.getElementById("password").value = "";
+}
+
+      const otpVerifyForm = document.getElementById("otp-verify-form");
+
+      otpVerifyForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+sent_otp='123456'
+        const enteredOTP = Array.from(
+          document.querySelectorAll("#otp-verify-form input")
+        ).map((input) => input.value).join("");
+
+        // Replace with your OTP generation and sending code
+
+        if (enteredOTP !== sent_otp) {
+          alert("Invalid OTP");
+          return;
+        }
+
+        alert("OTP verified successfully!");
+
+        // Redirect to homepage
+        window.location.href = "index.html";
+      });*/
+       
+    </script>
+  </body>
+</html>
+
+
+ -->

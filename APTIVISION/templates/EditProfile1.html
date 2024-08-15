@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Profile</title>
+    
+    <style>
+      form {
+  border: 1px solid #3aef9e;
+  padding:5px;
+  border-radius: 10px;
+  width: 40%;
+  height: 590px;
+  margin: 30 auto;
+  margin-left: 400px;
+  margin-top: 20px;
+  box-shadow: 0px 0px 10px #ccc;
+  background-color: rgba(255, 255, 255, 0.4); /* transparent white */
+}
+
+       
+      /* style for the profile icon */
+      h1 {
+        text-align: center;
+        color: #3aef9e;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+      }
+      
+      body {
+    background-image: url("{{url_for('static',filename=back)}}");
+		background-size: cover;
+		background-repeat:repeat;
+		overflow-x:hidden;
+		background-color: #124448;
+		margin: 0;
+		overflow-y: scroll;
+		padding: 0;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	   }
+     .textbox {
+      width: 90%; /* Increase the width of the textboxes to 100% */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #fff; 
+      }
+      .profile-icon {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+         color: #fff;
+        text-align: center;
+        line-height: 50px;
+        font-size: 12px;
+      }
+
+      input[type="text"], input[type="email"] {
+    width: 92%; /* Increase the width of the textboxes to 100% */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-top: 1px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 4px #03cbde;
+    color: #fff; /* Change the color of the text to white */
+    
+  }
+  .sbutton {
+  position: absolute;
+	top:80%;
+	left: 38%;
+	display: inline-block;
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  }
+  .sbutton:hover{
+
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+}
+placeholder{
+    color: rgb(3, 203, 222,0.5);
+  }
+	
+.backbtn{
+	position: absolute;
+	top:80%;
+	left: 57%;
+	display: inline-block;
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.backbtn:hover{
+
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+}
+
+  placeholder{
+    color: rgb(3, 203, 222,0.5);
+  }
+	
+    
+  
+
+     /* style for the upload profile input and image preview */
+      #upload-profile {
+      margin-left: 10px;
+      display: none;
+      }
+      #uploaded-profile-pic {
+      margin-left: 10px;
+      border-radius: 50%; /* Make the image circular */
+      background-color: #ccc; /* Add a background color to the image */
+    }
+      
+      #preview {
+        margin-left: 10px;
+        min-width: 15px;
+        margin-top: 3px;
+      }
+      
+  
+    </style>
+  </head>
+
+  <body>
+    <form method="POST" action="{{ url_for('user') }}" enctype="multipart/form-data">
+      <h2 style="text-align: center; color:#3aef9e;">Edit your profile<br></h2>
+      <input type="text" id="username2" name="username2" value="{{ username }}" placeholder="Change your username" required style="color:white;margin-left: 10px;background-color: #124448;">
+      <span class="icon"> <i class="fa fa-user"></i> </span><br>
+      <input type="text" id="first_name" name="first_name" value="{{ first_name }}" placeholder="Change your first name" required style="color:white;margin-left: 10px;margin-top:1px;background-color: #124448;">
+      <input type="text" id="last_name" name="last_name" value="{{ last_name }}" placeholder="Change your last name" required style="color:white;margin-left: 10px;margin-top:14px;background-color: #124448;">
+      <br><br>
+
+
+
+<div class="textbox" style="width: 92%; ">
+<label for="upload" style="color:#3aef9e;"> Upload Profile Picture:</label>
+<input type="file" id="profile_picture" name="profile_picture" style="text-size-adjust: 130px;color:#fff;" onchange="previewProfilePic()"></div>
+        <br> <img id="uploaded-profile-pic" src="{{ url_for('static', filename=profile1) }}"
+        style="max-width: 100px; max-height: 100px ; margin-left: 220px;"><br>
+
+<br>
+<button type="submit" class="sbutton"style="color:white;">SAVE</button>
+<br><button class="backbtn" type="submit" onclick="window.location='/student_in_charge'">BACK</button></tr>
+
+<script>
+  function previewProfilePic() {
+    const fileInput = document.getElementById('profile_picture');
+    const imgPreview = document.getElementById('uploaded-profile-pic');
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imgPreview.setAttribute('src', e.target.result);
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+</script>
+    </form>
+    </body>
+    </html>

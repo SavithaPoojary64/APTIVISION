@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ADD ATTENDACE</title>
+    
+    <style>
+      form {
+  border: 1px solid #3aef9e;
+  padding:5px;
+  border-radius: 10px;
+  width: 40%;
+  height: 600px;
+  margin: 30 auto;
+  margin-left: 400px;
+  margin-top: 20px;
+  box-shadow: 0px 0px 10px #ccc;
+  background-color: rgba(113, 110, 110, 0.4); /* transparent white */
+}
+body {
+		background-image: url("{{ url_for('static', filename=bg) }}");
+		background-size: cover;
+		background-repeat:repeat;
+		overflow-x:hidden;
+		background-color: #124448;
+		margin: 0;
+		overflow-y: scroll;
+		padding: 0;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	   }
+     input[type="submit"] {
+    
+    color: white;
+    padding: 10px 20px;
+    border-color: #3aef9e;
+    background-color: #35a37100;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease
+    }
+  
+    input[type="submit"]:hover {
+    background-color: #124448;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    }
+    
+    input[type="back"] {
+      
+      color: white;
+      padding: 10px 20px;
+      border-color: #3aef9e;
+      background-color: #35a37100;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      box-shadow: 0px 0px 10px #03cbde;
+      border-radius: 30px;
+      transition: all 0.3s ease
+      }
+    
+      input[type="back"]:hover {
+      background-color: #124448;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+      }
+       
+</style>
+</head>
+
+<body>
+  <form method="POST" action="{{ url_for('add_attendance') }}" enctype="multipart/form-data">
+
+    <h2 style="text-align: center; color:#3aef9e;">ADD ATTENDANCE<br></h2><br><br>
+    
+        <select id="Class_name" name="Class_name" style="width: 90%; height: 37px; border-radius: 5px; background-color: #124448; color: rgba(255, 255, 255, 0.708)" required>
+          <option value="" selected disabled>Select</option>
+          <option value="IBCA A">IBCA A</option>
+          <option value="IBCA B">IBCA B</option>
+          <option value="IBCA C">IBCA C</option>
+          <option value="IIBCA A">IIBCA A</option>
+          <option value="IIBCA B">IIBCA B</option>
+          <option value="IIBCA C">IIBCA C</option>
+          <option value="IIIBCA A">IIIBCA A</option>
+          <option value="IIIBCA B">IIIBCA B</option>
+      </select><br><br>
+            ENTER WEEK NAME<input type="text" id="week_name" name="week_name" style="width: 90%; height: 37px; border-radius: 5px; background-color: #124448; color: rgba(255, 255, 255, 0.708)" required>
+              <br><br>
+
+            
+                <select id="session_count" name="session_count" style="width: 90%; height: 37px; border-radius: 5px; background-color: #124448; color: rgba(255, 255, 255, 0.708)" required>
+                <option value="" disabled selected>Select how many sessions ?</option>
+            
+                <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      
+                    </select>
+                    <br><br>
+                    <input type="text" id="session1_attendance" name="session1_attendance"  placeholder="session1 attendance" required  style=" color:white;margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    <br><br>
+                    <input type="text" id="session2_attendance" name="session2_attendance"  placeholder="session2 attendance" required  style=" color:white;margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    <br><br>
+                    <input type="text" id="session3_attendance" name="session3_attendance"  placeholder="session3 attendance" required  style=" color:white;margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    <br><br>
+                    <label for="class-label" style="color: #4ee8f0;   font-size: 20px;margin-left: 20px;">Test score :</label><br><br>
+                    <input type="text" id=" test_above80" name="test_above80"  placeholder="Above 80" required  style=" color:white; width:15%; height:5%; margin-left: 8px;margin-top:1px;background-color: #124448;">
+                    <input type="text" id=" test_above50" name="test_above50"  placeholder="Above 50" required  style=" color:white; width:15%; height:5%;margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    <input type="text" id=" test_above30" name="test_above30"  placeholder="Above 30" required  style=" color:white; width:15%; height:5%;margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    <input type="text" id=" test_below30" name="test_below30"  placeholder="Below 30" required  style=" color:white; width:15%; height:5%; margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    <input type="text" id=" test_below20" name="test_below20"  placeholder="Below 30" required  style=" color:white; width:15%; height:5%; margin-left: 10px;margin-top:1px;background-color: #124448;">
+                    
+
+                    <br>
+                    <input type="submit" value="SUBMIT" style="color: #4ee8f0; margin-top: 10%; background-color: #124448;margin-left: 90px;" >
+ 
+                    <input type="back" value="BACK" style="color: #4ee8f0; margin-top: 10%;background-color: #124448;margin-left: 110px; width: 65px;" onclick="window.location.href='/student_in_charge'">
+</form>
+</body>
+</html>

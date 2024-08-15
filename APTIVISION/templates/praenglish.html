@@ -1,0 +1,145 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Verbal Ability Questions</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<style>
+    body {
+			background-image: url('bg.png');
+			background-size: cover;
+			background-repeat: repeat;
+			overflow-x: hidden;
+			background-color: #124448;
+			margin: 0;
+			height: 650px;
+			overflow-y: scroll;
+			padding: 0;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		}
+        .textbox {
+          
+            width: 1%; /* Increase the width of the textboxes to 100% */
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-left: 20px;
+          margin-top: 5px;
+          margin-bottom: 10px;
+          color: #1d0303; 
+            }
+            h1 {
+         
+			font-size: 30px;
+			text-align: center;
+			color: #3aef9e;
+			margin-bottom: 80px;
+			margin-top: 0;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+		}
+        .btn {
+			color: white;
+            padding: 10px 20px;
+            border-color: #3aef9e;
+            background-color: #35a37100;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0px 0px 10px #03cbde;
+            border-radius: 30px;
+            transition: all 0.3s ease
+		}
+
+		.btn:hover {
+            background-color: #124448;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+		}
+		.score{
+			font-size: 26px;
+			color: #4ee8f0;
+			text-align: center;
+			margin-top: 20px;
+			background-color: #124448;
+       
+			
+		}
+        </style>  
+	<div class="container">
+		<h1 style="margin-top: 50px;">Verbal Ability Questions</h1>
+		<form id="quiz-form">
+			<div class="textbox"
+				style="width: 90%;">
+
+				<!-- Question 1 -->
+				<br>
+				<div class="question-group">
+					<label for="question-1" style="font-size: 18px; color: #4ee8f0;">Q1: PAIN:SEDATIVE</label>
+
+				<div class="option-group" style="font-size: 18px; color: #4ee8f0;">
+					<input type="radio" name="q1-options" value="1"> <label for="q1-option-1">comfort:stimulant</label><br>
+				<input type="radio" name="q1-options" value="2"> <label for="q1-option-2">grief:consolation</label><br>
+				<input type="radio" name="q1-options" value="3"> <label for="q1-option-3">trance:narcotic</label><br>
+				<input type="radio" name="q1-options" value="4"> <label for="q1-option-4">ache:extraction</label><br>
+				<label id="q1-answer"></label></div>
+		</div>
+
+		<!-- question 2 -->
+		<br><br><br>
+      <div class="question-group">
+        <label for="question-2" style="font-size: 18px; color: #4ee8f0;">Q2: Fate smiles ...... those who untiringly grapple with stark realities of life.</label>
+      <div class="option-group2" style="font-size: 18px; color: #4ee8f0;">
+        <input type="radio" name="q2-options" value="3"> <label for="q2-option-1">with</label><br>
+      <input type="radio" name="q2-options" value="2"> <label for="q2-option-2">on</label><br>
+      <input type="radio" name="q2-options" value="1"> <label for="q2-option-3"> over</label><br>
+      <input type="radio" name="q2-options" value="4"> <label for="q2-option-4">round</label><br>
+      <label id="q2-answer"></label></div>
+    </div>
+
+	<!-- Submit button -->
+			<div class="button">
+				<button type="button" onclick="submitAnswers()"
+				class="btn" style="margin-left: 200px; margin-top: 100px;" onclick="submitAnswers()">SUBMIT</button>
+				<button class="btn" type="button" id="cancel-button" style="margin-left: 400px; margin-top: 100px;" onclick="window.location='practice.html'">Cancel</button>
+
+			</div>
+			</form>
+	<!-- Score showing -->
+	<div id="score" class="score"></div>
+
+			<script>
+				function submitAnswers() {
+					var selectedOptions = document.querySelectorAll('input[type="radio"]:checked');
+					var score = 0;
+		
+					for (var i = 0; i < selectedOptions.length; i++) {
+						var option = selectedOptions[i];
+						var questionId = option.getAttribute('name').split('-')[0];
+						var answerLabel = document.getElementById(questionId + '-answer');
+		
+						if (option.value === '1') {
+							answerLabel.textContent = 'Correct!';
+							answerLabel.style.color = 'green';
+							score++;
+						} else {
+							answerLabel.textContent = 'Incorrect!';
+							answerLabel.style.color = 'red';
+						}
+					}
+		
+					var scoreDisplay = document.getElementById('score');
+					scoreDisplay.textContent = 'Your score: ' + score + ' out of 2';
+				}
+
+				
+			</script>
+			
+			</div>
+					
+	
+</body>
+</html>
+

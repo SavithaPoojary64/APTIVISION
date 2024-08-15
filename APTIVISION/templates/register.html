@@ -1,0 +1,81 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Registration</title>
+  <style>
+    body {
+		background-image: url('bg.png');
+		background-size: cover;
+		background-repeat:repeat;
+		overflow-x:hidden;
+		background-color: #124448;
+		margin: 0;
+		overflow-y: scroll;
+		padding: 0;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	   }
+     form {
+            display: flex;
+            flex-direction: column;
+           
+            margin-top: 45px;
+            border: 1px solid #3aef9e;
+            padding:5px;
+            border-radius: 10px;
+            width: 40%;
+            
+           height: 450px;
+           margin: 30 auto;
+           margin-left: 400px;
+           box-shadow: 0px 0px 10px #ccc;
+           background-color: rgba(255, 255, 255, 0.4); /* transparent white */
+    
+        }
+     input[type="submit"] {
+    
+    color: white;
+    padding: 10px 20px;
+    border-color: #3aef9e;
+    background-color: #35a37100;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease
+    }
+  
+    input[type="submit"]:hover {
+    background-color: #124448;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+ 
+  <h1 style="text-align: center; color:#3aef9e;font-size: 30px;margin-left: 50px;">Student Registration</h1>
+  <form method="POST" action="/register">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" style="width: 30%; height: 37px; border-radius: 5px; background-color: #124448; color: rgba(255, 255, 255, 0.708)" required><br><br>
+    
+    <label for="roll">Roll Number:</label>
+    <input type="text" id="roll" name="roll" style="width: 30%; height: 37px; border-radius: 5px; background-color: #124448; color: rgba(255, 255, 255, 0.708)" required><br><br>
+    
+    <label for="class">Class:</label>
+    <select id="class" name="class" style="width: 30%; height: 37px; border-radius: 5px; background-color: #124448; color: rgba(255, 255, 255, 0.708)"  required>
+      <option value="I BCA A">select option</option>
+      <option value="I BCA A">I BCA A</option>
+      <option value="I BCA B">I BCA B</option>
+      <option value="II BCA A">II BCA A</option>
+      <option value="II BCA B">II BCA B</option>
+      <option value="III BCA A">III BCA A</option>
+      <option value="III BCA B">III BCA B</option>
+    </select><br><br>
+    
+    <input type="submit" value="Register" style="width: 20%;">
+  </form>
+</body>
+</html>

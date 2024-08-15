@@ -1,0 +1,32 @@
+[
+  {
+    "question": "What are your strengths?",
+    "sample_answers": [
+      "I possess strong analytical and problem-solving skills.",
+      "I am an excellent communicator, both verbal and written.",
+      "I have a track record of successfully managing and prioritizing multiple tasks.",
+      "I thrive in a collaborative team environment and contribute effectively to group projects.",
+      "I am highly motivated and consistently strive for excellence in my work.",
+      "I pay meticulous attention to detail, ensuring accuracy and quality in all tasks.",
+      "I have demonstrated leadership abilities, taking charge when necessary and inspiring others.",
+      "I remain composed and perform well under pressure, finding solutions in challenging situations.",
+      "I am committed to continuous learning and self-development, always seeking to expand my knowledge and skills."
+    ]
+  },
+  {
+    "question": "Tell me about your previous experience.",
+    "sample_answers": [
+      "I have a strong background as a software developer, working on various projects and technologies.",
+      "I have successfully led teams of engineers, coordinating efforts and delivering high-quality solutions.",
+      "I possess experience with multiple programming languages and have a solid understanding of software development principles."
+    ]
+  },
+  {
+    "question": "Why do you want to join our company?",
+    "sample_answers": [
+      "I am deeply impressed by the company's innovative products and the impact they have in the industry.",
+      "I strongly resonate with the company's mission and values, and I believe in the positive change it brings.",
+      "I see tremendous opportunities for growth and learning within your company, and I am excited to be part of the journey."
+    ]
+  }
+]

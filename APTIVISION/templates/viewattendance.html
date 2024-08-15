@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VIEW ATTENDACE</title>
+    <style>
+      
+
+      body {
+        background-image: url("{{ url_for('static', filename=bg) }}");
+          background-size: cover;
+          background-repeat:repeat;
+          overflow-x:scroll;
+          background-color: #124448;
+          margin: 0;
+          overflow-y: scroll;
+          padding: 0;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+           }
+            
+      label {
+          font-weight: bold;
+          margin-right: 10px;
+          min-width: 100px;
+          font-size: 16px;
+      
+        }
+        table{
+          width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0px 0px 10px #03ccde;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+	color: #b1f5d7; 
+	  border-radius: 10px;
+	  padding: 10px;
+        position: relative;
+        top: 30%;
+        left: 1%;
+      
+        }
+        td,th{
+          border-radius: 0px;
+        text-align: center;
+        box-shadow: 0px 0px 10px #03ccde;
+        padding: 2px; /* Increase padding on all sides */
+        background-color: #092425;
+          }
+          select {
+                  padding: 8px;
+                  width: 15%;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                  background-color: #124448;
+                  color: #4ee8f0;
+              }
+              input[type="submit"],input[type="button"] {
+          color: white;
+    padding: 10px 20px;
+    border-color: #3aef9e;
+    background-color: #124448;
+        text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+        }
+        
+        input[type="submit"]:hover,input[type="button"]:hover {
+          background-color: #124448;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+        }
+        .table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin: 50px auto;
+            box-shadow: 0px 0px 10px #03ccde;
+
+            width: 70%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            margin-left: 20%;
+        }
+          </style>
+</head>
+<body>
+    <br>
+    <h2 style="text-align: center; color:#3aef9e;">VIEW ATTENDANCE</h2>
+    <br><br>
+    <form action="/view_attendance" method="POST">
+       
+
+        <input type="submit" value="VIEW" style="margin-left: 610px;">
+    </form>
+    <div class="table-container">
+
+    <table id="default" style="display: table;">
+        <tr>
+            <td>Class</td>
+            <td>Session1</td>
+            <td>Session2</td>
+            <td>Session3</td>
+            <td>Score Above 80</td>
+            <td>Score Above 50</td>
+            <td>Score Above 30</td>
+            <td>Score Below 30</td>
+        </tr>
+        {% for data in attendance_data %}
+        <tr>
+          <td>{{ data[0] }}</td>
+          <td>{{ data[1] }}</td>
+          <td>{{ data[2] }}</td>
+          <td>{{ data[3] }}</td>
+          <td>{{ data[4] }}</td>
+          <td>{{ data[5] }}</td>
+          <td>{{ data[6] }}</td>
+          <td>{{ data[7] }}</td>
+        </tr>
+      {% endfor %}
+    </table> 
+  </div>    
+    <form>
+      <div class="form-group">
+          <input type="button" value="BACK" style="position: relative; left: 30%;" onclick="window.location.href='/place_head'">
+      </div>
+  </form>     
+
+</body>
+</html>

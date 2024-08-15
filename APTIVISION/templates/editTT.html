@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        body {
+		background-image: url("{{ url_for('static', filename=bg) }}");
+		background-size: cover;
+		background-repeat:repeat;
+		overflow-x:hidden;
+		background-color: #124448;
+		margin: 0;
+		overflow-y: scroll;
+		padding: 0;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	   }
+       select
+   {
+    width: 15%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #4ee8f0;
+    background-color: #124448;
+    margin-left: 30px;
+  }
+  label,p,h3{
+    color: #4ee8f0;
+    margin-left: 30px;
+    font-size: 18px;
+  }
+  button{
+    margin-left: 30px;
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+.button:hover{
+
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+}
+.time-table{
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 10px;
+	padding: 10px;
+    margin-left: 80px;
+	
+  }
+  td,th{
+    text-align: center;
+  box-shadow: 0px 0px 10px #03ccde;
+  padding: 2px; /* Increase padding on all sides */
+  background-color: #092425;
+    }
+   </style>
+</head>
+<body>
+    <form action="/processform" method="post"><br><br>
+        <select id="clsdrpdwn" name="clsdrpdwn" required>
+            <option value="" selected disabled>Select</option>
+            {% for classvals in classval %}
+            <option>{{classvals}}</option>
+            {% endfor %}
+        </select>
+        <br><br>          
+        <button type="submit" name="action" value="remove">Remove class</button><br><br>
+
+        
+</form>
+
+
+
+<form action="/changefun" method="post">
+    <select id="clsdrpdwn2" name="clsdrpdwn2" required>
+        <option value="" selected disabled>Select</option>
+        {% for classvals in classval %}
+        <option>{{classvals}}</option>
+        {% endfor %}
+    </select>
+        <br><br>
+    <button type="submit" id="change-btn">change functionality</button><br><br>
+    <div id="change-form" style="display: none;">
+        {% for i in range(weeks|length) %}
+        <p>Change subject for {{weeks[i]}}:</p>
+        <select id="subdrpdwn2{{i+1}}" name="subdrpdwn2{{i+1}}" required>
+            <option value="" selected disabled>Select</option>
+            <option value="English">English</option>
+            <option value="Kannada">Kannada</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Direction">Direction</option>
+        </select>
+    
+        {% endfor %}
+        <div>
+            <h3>Select Session details</h3>
+            <label>Monday:</label>
+<select id="session1" name="session1">
+    <option value="no class">no class</option>
+    <option value="session1">session1</option>
+    <option value="session2">session2</option>
+    <option value="session3">session3</option>
+    <option value="session4">session4</option>
+    <option value="session5">session5</option>
+    <option value="session6">session6</option>
+</select>
+<br><br>
+<label>Tuesday:</label>
+<select id="session2" name="session2">
+    <option value="no class">no class</option>
+    <option value="session1">session1</option>
+    <option value="session2">session2</option>
+    <option value="session3">session3</option>
+    <option value="session4">session4</option>
+    <option value="session5">session5</option>
+    <option value="session6">session6</option>
+</select>
+<br><br>
+<label>Wednesday:</label>
+<select id="session3" name="session3">
+    <option value="no class">no class</option>
+    <option value="session1">session1</option>
+    <option value="session2">session2</option>
+    <option value="session3">session3</option>
+    <option value="session4">session4</option>
+    <option value="session5">session5</option>
+    <option value="session6">session6</option>
+</select>
+<br><br>
+<label>Thursday:</label>
+<select id="session4" name="session4">
+    <option value="no class">no class</option>
+    <option value="session1">session1</option>
+    <option value="session2">session2</option>
+    <option value="session3">session3</option>
+    <option value="session4">session4</option>
+    <option value="session5">session5</option>
+    <option value="session6">session6</option>
+</select>
+<br><br>
+<label>Friday:</label>
+<select id="session5" name="session5">
+    <option value="no class">no class</option>
+    <option value="session1">session1</option>
+    <option value="session2">session2</option>
+    <option value="session3">session3</option>
+    <option value="session4">session4</option>
+    <option value="session5">session5</option>
+    <option value="session6">session6</option>
+</select>
+<br><br>
+<label>Saturday:</label>
+<select id="session6" name="session6">
+    <option value="no class">no class</option>
+    <option value="session1">session1</option>
+    <option value="session2">session2</option>
+    <option value="session3">session3</option>
+    <option value="session4">session4</option>
+    <option value="session5">session5</option>
+    <option value="session6">session6</option>
+</select>
+
+        </div><br><br>
+        <button type="submit" name="action" value="change">Change</button><br><br>
+    </div>
+    
+</form>
+
+    
+    <table class="time-table">
+        <tr>
+            <th>class</th>
+            {% for week in weeks %}
+                <th>{{ week }}</th>
+            {% endfor %}
+        </tr>
+                    
+        {% for i in range(class_count) %}
+        <tr>
+            <td>{{ classval[i] }}</td>
+            {% for week in weeks %}
+            <td>
+                {% if week in weeks_subjects %}
+                    {% if i < weeks_subjects[week]|length %}
+                        {{ weeks_subjects[week][i] }}<br>
+                    {% endif %}
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table><br><br>
+    <button id="view_session" class="addbtn">view session details</button><br><br>
+    <table id="sessiontable" style="display: none;" class="time-table">
+        <br><br>
+        <tr>
+            <th>Class</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+<th>Wednesday</th>
+<th>Thursday</th>
+<th>Friday</th>       
+<th>Saturday</th>
+</tr>
+        {% for session in sessions %}
+
+
+
+        <tr>
+            <td>{{ session[0] }}</td>
+           
+
+            <td>{{ session[2] }}</td>
+            <td>{{ session[3] }}</td>
+            <td>{{ session[4] }}</td>
+            <td>{{ session[5] }}</td>
+            <td>{{ session[6] }}</td>
+            <td>{{ session[7] }}</td>
+
+        </tr>
+        {% endfor %}
+
+    
+    </table>
+    <button type="submit" style="margin-left: 120px;padding: 10px 20px;"  onclick="window.location.href='/place_head'">Cancel</button><br><br>
+
+<script>
+    //session table
+    var sessionTable = document.getElementById('sessiontable');
+        var viewSessionButton = document.getElementById('view_session');
+
+        viewSessionButton.addEventListener('click', function() {
+            // Toggle the display of the session table
+            sessionTable.style.display = sessionTable.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // //remove class dropdown
+        // var clsdrpdown=document.getElementById('removeclass');
+        // var removebtn=document.getElementById('removebutton');
+
+        // removebtn.addEventListener('click', function() {
+        //     event.preventDefault(); // Prevent form submission
+
+        //     clsdrpdown.style.display = clsdrpdown.style.display === 'none' ? 'block' : 'none';
+        // });
+
+        //show change functionality form
+        var changeform = document.getElementById('change-form');
+        var changebtn = document.getElementById('change-btn');
+
+        changebtn.addEventListener('click', function() {
+            // Toggle the display of the session table
+            event.preventDefault(); // Prevent form submission
+            changeform.style.display = changeform.style.display === 'none' ? 'block' : 'none';
+        });
+        
+
+      
+</script>
+</body>
+</html>
+

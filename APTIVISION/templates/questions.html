@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aptitude Test</title>
+    <style>
+        /* Add your custom styles here */
+        .hidden {
+            display: none;
+        }
+        body {
+			background-image: url("{{ url_for('static', filename=bg) }}");
+            background-size: cover;
+            background-repeat: repeat;
+            overflow-x: scroll;
+            background-color: #124448;
+            margin: 0;
+            overflow-y: scroll;
+            padding: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        h1{
+            color: aqua;
+            font-size: 30px;
+            margin-left: 185px;
+        }
+table{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 5px;
+	padding: 5px;
+	position: relative;
+	margin-top: 30px;
+  margin-left: 175px;
+    }
+  td,th{
+  text-align: center;
+  box-shadow: 0px 0px 10px #03ccde;
+  padding: 2px; /* Increase padding on all sides */
+  background-color: #092425;
+    }
+    form{
+        color: aqua;
+        font-size: 18px;
+    }
+    input[type="submit"] {
+    
+    color: white;
+    padding: 10px 20px;
+    border-color: #3aef9e;
+    background-color: #124448;
+        text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px #03cbde;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    margin-left: 50px;
+  }
+
+  input[type="submit"]:hover {
+  background-color: #124448;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  }
+  .subject-btn{
+    background-color: #03ccde00;
+    color: #3aef9e;
+    font-size: 18px;
+  }
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initially hide all forms except the first one
+            $('form:not(:first)').addClass('hidden');
+
+            // Toggle the visibility of forms based on button click
+            $('button.subject-btn').click(function() {
+                var subjectId = $(this).data('subject');
+                $('form').addClass('hidden');
+                $('#' + subjectId).removeClass('hidden');
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>YOUR ASSIGNMENTS</h1>
+    <table>
+        <tr>
+            <th>Class</th>
+            <th>Due Date</th>
+            <th>Subject</th>
+        </tr>
+        {% for sub in subjects %}
+        <tr>
+            <td>{{ sub[0] }}</td>
+            <td>{{ sub[1] }}</td>
+            <td><button class="subject-btn" data-subject="{{ sub[2] }}">{{ sub[2] }}</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/submit_test" method="POST" id="English" class="hidden">
+        <input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+        <input type="text" value="English" id="subject" name="subject" style="display: none;">
+{% for sub in subjects %}
+<input type="text" value="{{sub[0]}}" id="class" name="class" style="display: none;">
+{% endfor %}
+            <h2>English</h2>
+            <ol>
+                <li>
+                    <p>Question 1: What is the synonym of "Eloquent"?</p>
+                    <input type="radio" name="english_q1" value="option1"> A. Articulate<br>
+                    <input type="radio" name="english_q1" value="option2"> B. Clumsy<br>
+                    <input type="radio" name="english_q1" value="option3"> C. Drowsy<br>
+                    <input type="radio" name="english_q1" value="option4"> D. Evasive<br>
+                </li>
+                <li>
+                    <p>Question 2: Choose the correct sentence:</p>
+                    <input type="radio" name="english_q2" value="option1"> A. He don't like ice cream.<br>
+                    <input type="radio" name="english_q2" value="option2"> B. She is sings beautifully.<br>
+                    <input type="radio" name="english_q2" value="option3"> C. They has gone to the park.<br>
+                    <input type="radio" name="english_q2" value="option4"> D. We are going to the party tonight.<br>
+                </li>
+            </ol>
+            <input type="submit" value="Submit Test">
+</form>
+<form action="/submit_test" method="POST" id="Syllogism" class="hidden">
+    <input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+    <input type="text" value="Syllogism" id="subject" name="subject" style="display: none;">
+    {% for sub in subjects %}
+    <input type="text" value="{{sub[0]}}" id="class" name="class" style="display: none;">
+    {% endfor %}
+            <h2>Syllogism</h2>
+            <ol>
+                <li>
+                    <p>Question 1: All cats are animals. All tigers are cats. What can we conclude?</p>
+                    <input type="radio" name="syllogism_q1" value="option1"> A. All tigers are animals.<br>
+                    <input type="radio" name="syllogism_q1" value="option2"> B. All animals are tigers.<br>
+                    <input type="radio" name="syllogism_q1" value="option3"> C. Some tigers are animals.<br>
+                    <input type="radio" name="syllogism_q1" value="option4"> D. None of the above.<br>
+                </li>
+                <li>
+                    <p>Question 2: All pens are pencils. Some pencils are erasers. What can we conclude?</p>
+                    <input type="radio" name="syllogism_q2" value="option1"> A. All erasers are pens.<br>
+                    <input type="radio" name="syllogism_q2" value="option2"> B. Some pens are erasers.<br>
+                    <input type="radio" name="syllogism_q2" value="option3"> C. All pencils are erasers.<br>
+                    <input type="radio" name="syllogism_q2" value="option4"> D. None of the above.<br>
+                </li>
+            </ol>
+            <input type="submit" value="Submit Test">
+
+</form>            
+<form action="/submit_test" method="POST" id="Direction" class="hidden">
+    <input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+    <input type="text" value="Direction" id="subject" name="subject" style="display: none;">
+    {% for sub in subjects %}
+    <input type="text" value="{{sub[0]}}" id="class" name="class" style="display: none;">
+    {% endfor %}
+            <h2>Direction</h2>
+            <ol>
+                <li>
+                    <p>Question 1: If North-East is 045°, what is the direction exactly opposite to it?</p>
+                    <input type="radio" name="direction_q1" value="option1"> A. 090°<br>
+                    <input type="radio" name="direction_q1" value="option2"> B. 180°<br>
+                    <input type="radio" name="direction_q1" value="option3"> C. 225°<br>
+                    <input type="radio" name="direction_q1" value="option4"> D. 270°<br>
+                </li>
+                <li>
+                    <p>Question 2: If A is to the east of B and C is to the north of A, in which direction is C with respect to B?</p>
+                    <input type="radio" name="direction_q2" value="option1"> A. North-West<br>
+                    <input type="radio" name="direction_q2" value="option2"> B. North<br>
+                    <input type="radio" name="direction_q2" value="option3"> C. North-East<br>
+                    <input type="radio" name="direction_q2" value="option4"> D. None of the above<br>
+                </li>
+            </ol>
+            <input type="submit" value="Submit Test">
+
+</form>
+<form action="/submit_test" method="POST" id="Blood-Relation" class="hidden">
+    <input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+<input type="text" value="Blood-Relation" id="subject" name="subject" style="display: none;">
+{% for sub in subjects %}
+<input type="text" value="{{sub[0]}}" id="class" name="class" style="display: none;">
+{% endfor %}
+
+    <h2>Blood Relation</h2>
+    <ol>
+        <li>
+            <p>Question 1: A is the son of B, and C is the brother of B. What is the relationship of C to A?</p>
+            <input type="radio" name="blood_relation_q1" value="option1"> A. Father<br>
+            <input type="radio" name="blood_relation_q1" value="option2"> B. Uncle<br>
+            <input type="radio" name="blood_relation_q1" value="option3"> C. Brother<br>
+            <input type="radio" name="blood_relation_q1" value="option4"> D. None of the above<br>
+        </li>
+        <li>
+            <p>Question 2: P is the mother of Q, and Q is the sister of R. What is the relationship of R to P?</p>
+            <input type="radio" name="blood_relation_q2" value="option1"> A. Daughter<br>
+            <input type="radio" name="blood_relation_q2" value="option2"> B. Son<br>
+            <input type="radio" name="blood_relation_q2" value="option3"> C. Niece<br>
+            <input type="radio" name="blood_relation_q2" value="option4"> D. Nephew<br>
+        </li>
+    </ol>
+    <input type="submit" value="Submit Test">
+
+</form>
+
+<form action="/submit_test" method="POST" id="quantitative" class="hidden">
+    <input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+
+    <input type="text" value="quantitative" id="subject" name="subject" style="display: none;">
+    {% for sub in subjects %}
+    <input type="text" value="{{sub[0]}}" id="class" name="class" style="display: none;">
+    {% endfor %}
+            <h2>Quantitative</h2>
+            <ol>
+                <li>
+                    <p>Question 1: What is the square root of 121?</p>
+                    <input type="radio" name="quantitative_q1" value="option1"> A. 10<br>
+                    <input type="radio" name="quantitative_q1" value="option2"> B. 11<br>
+                    <input type="radio" name="quantitative_q1" value="option3"> C. 12<br>
+                    <input type="radio" name="quantitative_q1" value="option4"> D. 13<br>
+                </li>
+                <li>
+                    <p>Question 2: If 3x + 7 = 22, what is the value of x?</p>
+                    <input type="radio" name="quantitative_q2" value="option1"> A. 5<br>
+                    <input type="radio" name="quantitative_q2" value="option2"> B. 6<br>
+                    <input type="radio" name="quantitative_q2" value="option3"> C. 7<br>
+                    <input type="radio" name="quantitative_q2" value="option4"> D. 8<br>
+                </li>
+            </ol>
+            <input type="submit" value="Submit Test">
+
+        </form>
+        <form action="/submit_test" method="POST" id="Logical-Reasoning" class="hidden">
+            <input type="text" value="{{rollno}}" id="rollno" name="rollno" style="display: none;">
+            <input type="text" value="Logical-Reasoning" id="subject" name="subject" style="display: none;">
+            {% for sub in subjects %}
+            <input type="text" value="{{sub[0]}}" id="class" name="class" style="display: none;">
+            {% endfor %}
+            <h2>Logical Reasoning</h2>
+            <ol>
+                <li>
+                    <p>Question 1: If all cats have fur and Fluffy is a cat, does Fluffy have fur?</p>
+                    <input type="radio" name="logical_reasoning_q1" value="option1"> A. Yes<br>
+                    <input type="radio" name="logical_reasoning_q1" value="option2"> B. No<br>
+                    <input type="radio" name="logical_reasoning_q1" value="option3"> C. Maybe<br>
+                    <input type="radio" name="logical_reasoning_q1" value="option4"> D. It cannot be determined<br>
+                </li>
+                <li>
+                    <p>Question 2: Arrange the following words in alphabetical order: Elephant, Dog, Cat, Lion</p>
+                    <input type="radio" name="logical_reasoning_q2" value="option1"> A. Cat, Dog, Elephant, Lion<br>
+                    <input type="radio" name="logical_reasoning_q2" value="option2"> B. Cat, Dog, Lion, Elephant<br>
+                    <input type="radio" name="logical_reasoning_q2" value="option3"> C. Dog, Cat, Elephant, Lion<br>
+                    <input type="radio" name="logical_reasoning_q2" value="option4"> D. Dog, Cat, Lion, Elephant<br>
+                </li>
+            </ol>
+            <input type="submit" value="Submit Test">
+
+        </form>          
+</body>
+</html>

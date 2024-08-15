@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech-to-Text Example</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename=bg) }}");
+            background-size: cover;
+            background-repeat: repeat;
+            overflow-x: hidden;
+            background-color: #124448;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+    
+        label{
+            color: aquamarine;
+            position: relative;
+            font-size: 30px; /* Add margin-bottom for spacing */
+        }
+    
+       
+        .btn {
+            color: white;
+            padding: 10px 20px;
+            border-color: #3aef9e;
+            background-color: #124448;
+            text-align: center;
+            text-decoration: none;
+            font-size: 22px;
+            box-shadow: 0px 0px 10px #03cbde;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+    
+        .btn:hover {
+            background-color: #124448;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        .btn2 {
+            color: white;
+            padding: 5px 10px;
+            border-color: #3aef9e;
+            background-color: #124448;
+            text-align: center;
+            text-decoration: none;
+            font-size: 22px;
+            box-shadow: 0px 0px 10px #03cbde;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+    
+        .btn2:hover {
+            background-color: #124448;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+    
+</head>
+<body>
+    <button onclick="startInterview()" id="start_btn" class="btn">Start Interview</button>
+    <div id="container" style="display: none;">
+   <label style="color: bisque;">QUESTION :</label><label id="question"></label><br><br>
+   <label style="color: bisque;">YOUR ANSWER :</label><label id="result"></label><br><br>
+        <button onclick="nextQuestion()" class="btn2">Next Question</button><br><br>
+        <button onclick="submitAnswers()" class="btn2">Submit</button><br><br>
+        <label id="countdown"></label>
+    </div>
+
+    <script>
+        var questions = {{ questions|tojson }};
+        var currentQuestionIndex = 0;
+        var interviewInterval;
+        var countdownInterval;
+        var recognition;
+        var results = [];
+        var totalTime = 60; // Total time limit in seconds
+        var remainingTime = totalTime;
+        var timerStarted = false;
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                var synthesis = window.speechSynthesis;
+                var utterance = new SpeechSynthesisUtterance(text);
+                synthesis.speak(utterance);
+            } else {
+                console.log('Speech synthesis not supported');
+            }
+        }
+
+        function readQuestion() {
+            var questionElement = document.getElementById('question');
+            var question = questions[currentQuestionIndex];
+            questionElement.textContent = question;
+            speakText(question);
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questions.length) {
+                clearInterval(interviewInterval);
+            }
+        }
+
+        function startInterview() {
+            var startButton = document.getElementById('start_btn');
+            var container = document.getElementById('container');
+            startButton.style.display = 'none';
+            container.style.display = 'block';
+
+            readQuestion();
+            startCountdown();
+            interviewInterval = setInterval(function() {
+                clearInterval(interviewInterval);
+                submitAnswers();
+            }, totalTime * 1000); // Set the total time limit
+            startListening();
+            timerStarted = true;
+        }
+
+        function nextQuestion() {
+            stopListening();
+            clearInterval(countdownInterval);
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+            } else {
+                readQuestion();
+                startCountdown();
+                startListening();
+            }
+        }
+
+        function startCountdown() {
+            var countdownElement = document.getElementById('countdown');
+            countdownElement.textContent = remainingTime;
+
+            countdownInterval = setInterval(function() {
+                remainingTime--;
+                countdownElement.textContent = remainingTime;
+                if (remainingTime <= 5) {
+                    countdownElement.style.color = 'red';
+                }
+                if (remainingTime === 0) {
+                    clearInterval(countdownInterval);
+                    submitAnswers();
+                }
+            }, 1000);
+        }
+
+        function startListening() {
+            recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function(event) {
+                var result = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        result += event.results[i][0].transcript + ' ';
+                    }
+                }
+                document.getElementById('result').textContent = result;
+                results[currentQuestionIndex - 1] = result.trim();
+            };
+
+            recognition.start();
+        }
+
+        function stopListening() {
+            if (recognition) {
+                recognition.stop();
+                recognition = null;
+            }
+        }
+
+        function submitAnswers() {
+            clearInterval(interviewInterval);
+            clearInterval(countdownInterval);
+            stopListening();
+            var formData = new FormData();
+            for (var i = 0; i < questions.length; i++) {
+                formData.append('answer[]', results[i]);
+            }
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from Flask
+                console.log(data);
+                // Redirect to the result page with answers
+                window.location.href = '/result?answers=' + JSON.stringify(results);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+</script>
+</body>
+</html>

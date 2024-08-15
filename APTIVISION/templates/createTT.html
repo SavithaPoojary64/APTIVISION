@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <style>
+        body {
+		background-image: url("{{ url_for('static', filename=bg) }}");
+		background-size: cover;
+		background-repeat:repeat;
+		overflow-x:hidden;
+		background-color: #124448;
+		margin: 0;
+		overflow-y: scroll;
+		padding: 0;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	   }
+	   .submitbtn{
+	
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.submitbtn:hover{
+
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+}
+.addbtn{
+	
+	border-color: #3aef9e;
+  background-color: #35a37100;
+  color: #fff;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 14px;
+  box-shadow: 0px 0px 10px #03cbde;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.addbtn:hover{
+
+background-color: #124448;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+
+}
+  .time-table{
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 10px;
+	padding: 10px;
+        box-shadow: 0px 0px 3px #03ccde;
+    margin-left: 80px;
+	
+  }
+  .sessiontt{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 5px;
+	padding: 5px;
+    position: relative;
+    margin-left: 80px;
+	
+  
+    }
+  td,th{
+    text-align: center;
+  box-shadow: 0px 0px 10px #03ccde;
+  padding: 2px; /* Increase padding on all sides */
+  background-color: #092425;
+    }
+	.sessiontt{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+  color: #b1f5d7; 
+  font-size: 18px;
+	border-radius: 5px;
+	padding: 5px;
+    position: relative;
+    margin-left: 80px;
+	
+  
+    }
+input[type="number"]{
+          color: #4ee8f0; background-color: #124448;
+            height: 25px;
+            width: 15%;
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        label{
+            color: #4ee8f0;   font-size: 18.5px;margin-left: 20px;
+        }
+        select
+   {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #4ee8f0;
+    background-color: #124448;
+  }
+
+    </style>
+</head>
+<body>
+    <form method="POST" action="/create_timetable">
+        <label for="week_count">Enter the number of weeks:</label>
+        <input type="number" name="week_count" id="week_count" required>
+        <br><br>
+        <label for="class_count">Enter the number of classes:</label>
+        <input type="number" name="class_count" id="class_count" required>
+        <br><br>
+        <button class="addbtn" id="add_class_button">Add Class and Subject Names</button>
+        <br><br>
+        <div id="class_sections">        </div>
+        <br><br>
+        <button class="submitbtn" style="margin-left: 30px;" type="submit" id="submit_button" disabled>Submit</button>
+        <input class="submitbtn" style="margin-left: 30px;" type="button" onclick="window.location.href='/place_head'" value="cancel"><br><br>
+    </form>
+    <table class="time-table">
+        <tr>
+            <th>class</th>
+            {% for week in weeks %}
+                <th>{{ week }}</th>
+            {% endfor %}
+        </tr>
+                    
+        {% for i in range(class_count) %}
+        <tr>
+            <td>{{ class_names[i] }}</td>
+            {% for week in weeks %}
+            <td>
+                {% if week in weeks_subjects %}
+                    {% if i < weeks_subjects[week]|length %}
+                        {{ weeks_subjects[week][i] }}<br>
+                    {% endif %}
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <br><br> <button id="view_session" class="addbtn">view session details</button>
+    <table id="sessiontable" class="sessiontt">
+        <br><br>
+        <tr>
+            <th>Class</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+<th>Wednesday</th>
+<th>Thursday</th>
+<th>Friday</th>       
+<th>Saturday</th>
+</tr>
+{% if error_msg %}
+<div class="alert alert-danger" role="alert" style="color: red;margin-left: 30px;">
+    {{ error_msg }}
+</div>
+{% endif %}
+
+{% if error_message %}
+<div class="alert alert-danger" role="alert" style="color: red;margin-left: 30px;">
+    {{ error_message }}
+</div>
+{% endif %}
+        {% for session in sessions %}
+
+
+
+        <tr>
+            <td>{{ session[0] }}</td>
+           
+
+            <td>{{ session[2] }}</td>
+            <td>{{ session[3] }}</td>
+            <td>{{ session[4] }}</td>
+            <td>{{ session[5] }}</td>
+            <td>{{ session[6] }}</td>
+            <td>{{ session[7] }}</td>
+
+        </tr>
+        {% endfor %}
+
+    
+    </table>
+
+    
+    
+
+    
+    <script>
+        // Class names dropdown options
+        var classNamesOptions = [
+            "I BCA",
+            "II BCA",
+            "III BCA",
+            "I Bcom",
+            "II Bcom",
+            "III Bcom"
+        ];
+
+        // Subject values dropdown options
+        var subjectValuesOptions = [
+            "English",
+            "Syllogism",
+            "Kannada",
+            "work and wages"
+        ];
+
+        // Day options for session values dropdown
+        var dayOptions = [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ];
+
+        var classSectionsDiv = document.getElementById('class_sections');
+        var sessionDropdownContainers = {}; // Store the session dropdown containers by class index
+
+        document.getElementById('add_class_button').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var weekCount = parseInt(document.getElementById('week_count').value);
+            var classCount = parseInt(document.getElementById('class_count').value);
+            classSectionsDiv.innerHTML = '';
+            sessionDropdownContainers = {}; // Clear the session dropdown containers
+
+            for (var i = 1; i <= classCount ; i++) {
+                var classDiv = document.createElement('div');
+                classDiv.classList.add('class_section');
+
+                var classLabel = document.createElement('label');
+                classLabel.textContent = 'Select Class ' + i + ':';
+                var classSelect = document.createElement('select');
+                classSelect.name = 'class_name_' + i;
+                classSelect.required = true;
+
+                // Add options to class names dropdown
+                var defaultOption = document.createElement('option');
+                defaultOption.text = 'Select';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                classSelect.add(defaultOption);
+
+                var requiredLabel = document.createElement('label');
+                requiredLabel.textContent = '*required';
+                requiredLabel.classList.add('required-label');
+                requiredLabel.style.display = 'none';
+
+                for (var j = 0; j < classNamesOptions.length; j++) {
+                    var option = document.createElement('option');
+                    option.text = classNamesOptions[j];
+                    classSelect.add(option);
+                }
+
+                classDiv.appendChild(classLabel);
+                classDiv.appendChild(classSelect);
+                classDiv.appendChild(requiredLabel);
+                classDiv.appendChild(document.createElement('br'));
+                classDiv.appendChild(document.createElement('br'));
+
+
+                for (var j = 1; j <= weekCount ; j++) {
+                    var subjectLabel = document.createElement('label');
+                    subjectLabel.textContent = 'Select subject for Week ' + j + ', Class ' + i + ':';
+                    var subjectSelect = document.createElement('select');
+                    subjectSelect.name = 'week_' + j + '_class_' + i;
+                    subjectSelect.required = true;
+
+                    // Add options to subject values dropdown
+                    var defaultOption = document.createElement('option');
+                    defaultOption.text = 'Select';
+                    defaultOption.disabled = true;
+                    defaultOption.selected = true;
+                    subjectSelect.add(defaultOption);
+
+                    for (var k = 0; k < subjectValuesOptions.length; k++) {
+                        var option = document.createElement('option');
+                        option.text = subjectValuesOptions[k];
+                        subjectSelect.add(option);
+                    }
+
+                    var requiredLabel = document.createElement('label');
+                    requiredLabel.textContent = '*required';
+                    requiredLabel.classList.add('required-label');
+                    requiredLabel.style.display = 'none';
+
+                    classDiv.appendChild(subjectLabel);
+                    classDiv.appendChild(subjectSelect);
+                    classDiv.appendChild(requiredLabel);
+                    classDiv.appendChild(document.createElement('br'));
+                    classDiv.appendChild(document.createElement('br'));
+
+                    
+                }
+
+                var sessionCountLabel = document.createElement('label');
+                sessionCountLabel.textContent = 'Enter how many sessions:';
+                var sessionCountInput = document.createElement('input');
+                sessionCountInput.type = 'number';
+                sessionCountInput.name = 'session_count_' + i;
+                sessionCountInput.classList.add('session_count');
+                sessionCountInput.required = true;
+                sessionCountInput.min = 1;
+                sessionCountInput.max = 6;
+                sessionCountInput.addEventListener('input', function(event) {
+                    var max = parseInt(event.target.getAttribute('max'));
+                    var value = parseInt(event.target.value);
+                    if (value > max) {
+                        event.target.value = max; // Set the value to the maximum allowed
+                    }
+                });
+                var okButton = document.createElement('button');
+                okButton.textContent = 'OK';
+                okButton.className='addbtn';
+                okButton.classList.add('ok_button');
+                okButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    this.classList.add('clicked'); // Add 'clicked' class to the button
+                });
+
+                okButton.dataset.classIndex = i; // Store the class index for later reference
+
+                classDiv.appendChild(sessionCountLabel);
+                classDiv.appendChild(sessionCountInput);
+                classDiv.appendChild(okButton);
+                classDiv.appendChild(document.createElement('br'));
+                classDiv.appendChild(document.createElement('br'));
+
+
+                classSectionsDiv.appendChild(classDiv);
+                classSectionsDiv.appendChild(document.createElement('br'));
+                classSectionsDiv.appendChild(document.createElement('br'));
+
+            }
+
+            // Add event listeners to OK buttons
+            // Add event listeners to OK buttons
+    var okButtons = document.getElementsByClassName('ok_button');
+    for (var i = 0; i < okButtons.length; i++) {
+        okButtons[i].addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            var classIndex = parseInt(event.target.dataset.classIndex);
+            var sessionCountInput = document.querySelector('input[name="session_count_' + classIndex + '"]');
+            var count = parseInt(sessionCountInput.value);
+
+            // Remove previous session dropdown container if it exists
+            if (sessionDropdownContainers[classIndex]) {
+                sessionDropdownContainers[classIndex].remove();
+            }
+
+            var sessionDiv = document.createElement('div');
+            sessionDiv.classList.add('session_section');
+            sessionDropdownContainers[classIndex] = sessionDiv;
+
+            for (var k = 1; k <= count; k++) {
+                var sessionLabel = document.createElement('label');
+                sessionLabel.textContent = 'Select session ' + k + ' for Class ' + classIndex + ':';
+                var sessionSelect = document.createElement('select');
+                sessionSelect.name = 'class_' + classIndex + '_session_' + k;
+                sessionSelect.required = true;
+
+                // Add options to day dropdown
+                var defaultOption = document.createElement('option');
+                defaultOption.text = 'Select';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                sessionSelect.add(defaultOption);
+
+                for (var l = 0; l < dayOptions.length; l++) {
+                    var option = document.createElement('option');
+                    option.text = dayOptions[l];
+                    sessionSelect.add(option);
+                }
+
+                var requiredLabel = document.createElement('label');
+                requiredLabel.textContent = '*required';
+                requiredLabel.classList.add('required-label');
+                requiredLabel.style.display = 'none';
+
+                sessionDiv.appendChild(sessionLabel);
+                sessionDiv.appendChild(sessionSelect);
+                sessionDiv.appendChild(requiredLabel);
+                sessionDiv.appendChild(document.createElement('br'));
+                sessionDiv.appendChild(document.createElement('br'));
+
+            }
+
+            // Insert the session dropdown container after the OK button
+            event.target.parentElement.parentElement.insertBefore(sessionDiv, event.target.parentElement.nextSibling);
+
+            // Enable the submit button if all required fields are filled
+            var requiredFields = document.querySelectorAll('input[required], select[required]');
+            var submitButton = document.getElementById('submit_button');
+            var isFormValid = true;
+
+            for (var i = 0; i < requiredFields.length; i++) {
+                if (!requiredFields[i].value) {
+                    isFormValid = false;
+                    break;
+                }
+            }
+
+            if (isFormValid) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        });
+    }
+
+        });
+
+        // Event listener to enable/disable submit button based on form validity
+        var requiredFields = document.querySelectorAll('input[required], select[required]');
+        var submitButton = document.getElementById('submit_button');
+
+        for (var i = 0; i < requiredFields.length; i++) {
+            requiredFields[i].addEventListener('input', function() {
+                var isFormValid = true;
+
+                for (var j = 0; j < requiredFields.length; j++) {
+                    if (!requiredFields[j].value) {
+                        isFormValid = false;
+                        break;
+                    }
+                }
+
+                if (isFormValid) {
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.disabled = true;
+                }
+            });
+        }
+
+        //session table
+        var sessionTable = document.getElementById('sessiontable');
+        var viewSessionButton = document.getElementById('view_session');
+
+        viewSessionButton.addEventListener('click', function() {
+            // Toggle the display of the session table
+            sessionTable.style.display = sessionTable.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

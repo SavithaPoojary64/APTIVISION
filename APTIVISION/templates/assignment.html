@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASSIGNMENT</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+      body {
+        background-image: url('bg.png');
+        background-size: cover;
+        background-repeat: repeat;
+        overflow-x: hidden;
+        background-color: #124448;
+        margin: 0;
+        overflow-y: scroll;
+        padding: 0;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+      form {
+  border: 1px solid #3aef9e;
+  padding:5px;
+  border-radius: 10px;
+  width: 100%;
+  height: 1500px;
+  margin: 30 auto;
+  margin-left: 0px;
+  margin-top: 0px;
+  box-shadow: 0px 0px 10px #ccc;
+  background-color: rgba(113, 110, 110, 0.4); /* transparent white */
+}
+      input[type="back"] {
+        color: white;
+        padding: 10px 20px;
+        border-color: #3aef9e;
+        background-color: #35a37100;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        box-shadow: 0px 0px 10px #03cbde;
+        border-radius: 30px;
+        transition: all 0.3s ease
+      }
+      input[type="back"]:hover {
+        background-color: #124448;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+      }
+      h1 {
+			font-size: 36px;
+			color: #333;
+			margin-top: 0;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 50%;
+			margin-top: 20px;
+		}
+
+		th, td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #0b0b0b;
+		}
+
+		th {
+			background-color: #197492;
+			color: #fff;
+      font-size: 26px;
+		}
+    tr{
+      color: #23a19f;
+      font-size: 20px;
+    }
+
+		tr:hover {
+			background-color: #f5f5f5;
+		}
+
+				.btn {
+			background-color: #3aef9e;
+			color: #fff;
+			border: none;
+			padding: 5px 10px;
+			border-radius: 3px;
+			text-decoration: none;
+			cursor: pointer;
+      font-size: 20px;
+		}
+
+		.btn:hover {
+			background-color: #3aef9e;
+		}
+     
+    </style>
+  </head>
+  <body>
+    <form method="POST" action="{{ url_for('assignment') }}" enctype="multipart/form-data">
+    <h2 style="text-align: center;  color:#3aef9e; font-size: 45px;">ASSIGNMENT<br></h2><br><br>
+    <div class="container">
+      <h1 style=" color:white; font-size: 45px;">Assignment Details</h1><br>
+
+      
+  
+      <!-- Assignment details table -->
+      <table>
+        <thead>
+          <tr>
+            <th>PPT</th>
+            <th>Description</th>
+            <th>Class Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for assignment in assignments %}
+          <tr>
+            <td><a href="{{ url_for('display_file', filename=assignment[0]) }}">View PPT</a></td>
+            <td>{{ assignment[1] }}</td>
+            <td>{{ assignment[2] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table> 
+      <button class="btn" style="position: absolute;top:420px;left:1000px;" > <a href="{{ url_for('student') }}">Cancel</a></button>
+
+    </div>
+    </form>
+  </body>
+</html>
